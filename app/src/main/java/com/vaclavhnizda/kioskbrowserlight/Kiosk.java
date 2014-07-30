@@ -1,11 +1,14 @@
 package com.vaclavhnizda.kioskbrowserlight;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
-
+import android.view.View;
+import android.app.ActionBar;
 
 public class Kiosk extends Activity {
 
@@ -15,17 +18,31 @@ public class Kiosk extends Activity {
         // Original code
         //setContentView(R.layout.activity_kiosk);
 
-        //4 Webview Rotation test
-        WebView webView = new WebView(this);
+        //Hide all the status bars
+        View decorView = getWindow().getDecorView();
+        // Hide the status bar.
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
+        // Remember that you should never show the action bar if the
+        // status bar is hidden, so hide that too if necessary.
+        ActionBar actionBar = getActionBar();
+        actionBar.hide();
+
+        //Webview & Rotation
+        WebView webView = new WebView(this);                    // Creates a new Webview
+        webView.getSettings().setJavaScriptEnabled(true);       // Enables Javascript for webpages
+        webView.setInitialScale(50);                            // Zooms out initially to 50%
+//        webView.getSettings().setTextZoom(3);                   // Zooms text size down
+        webView.setBackgroundColor(Color.BLACK);
+        webView.loadUrl("http://ts.transitscreen.com/index.php/screen/index/296500");
+        setContentView(webView);
+
 //        int x = webView.getMeasuredWidth();
 //        int y = webView.getMeasuredHeight();
 //        webView.setMinimumHeight(x);
 //        webView.setMinimumWidth(y);
-        //webView.setRotation(90);
-        webView.setFitsSystemWindows(true);
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl("http://ts.transitscreen.com/index.php/screen/index/296500");
-        setContentView(webView);
+        //webView.setRotation(-45);
+        //webView.setFitsSystemWindows(true);
 
     }
 
