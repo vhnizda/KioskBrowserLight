@@ -9,8 +9,7 @@
 
     <WebView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:>
+        android:layout_height="match_parent">
         </WebView>
 
     <Button
@@ -18,17 +17,16 @@
         android:layout_height="wrap_content"
         android:text="Test"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
+        android:layout_centerHorizontal="true"
         />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
-        android:layout_centerVertical="true"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/ic_launcher"
-        android:rotation="45"/>
+        android:src="@drawable/ic_launcher"/>
 
 
 
