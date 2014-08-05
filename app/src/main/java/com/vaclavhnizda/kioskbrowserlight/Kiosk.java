@@ -14,15 +14,52 @@ import android.widget.FrameLayout;
 import android.view.Display;
 import android.graphics.Point;
 import android.widget.RelativeLayout;
+import android.widget.AbsoluteLayout;
 import android.view.ViewGroup;
 
 public class Kiosk extends Activity {
 
+    private WebView xmlWebView = null;
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+        xmlWebView.saveState(outState);
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Original code
+        // Original code - load layout
         setContentView(R.layout.activity_kiosk);
+
+        // Create webview
+        xmlWebView = new WebView(this);
+
+        // Add webview to screen layout
+        ((RelativeLayout)findViewById(R.id.main)).addView(xmlWebView);
+
+        // Change settings on webview
+        if(savedInstanceState != null)
+        {
+            xmlWebView.restoreState(savedInstanceState);
+        }
+        else
+        {
+//            xmlWebView.setRotation(45.0f);
+            // turn off harware accelleration to all rotation to work!!
+            // http://stackoverflow.com/questions/18684172/webview-setrotation-creates-a-blank-page
+            xmlWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+
+            // Enable Javascript
+            xmlWebView.getSettings().setJavaScriptEnabled(true);
+
+            xmlWebView.getSettings().setBuiltInZoomControls(true);
+            xmlWebView.loadUrl("http://www.google.com");
+        }
+
 
         //Hide all the status bars
         View decorView = getWindow().getDecorView();
@@ -42,22 +79,23 @@ public class Kiosk extends Activity {
 
 
 //        //Attempt to rotate the screen - http://stackoverflow.com/questions/21355784/android-rotate-whole-layout
-        RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.main);
-        int w = mainLayout.getWidth();
-        int h = mainLayout.getHeight();
+//        RelativeLayout mainLayout = (RelativeLayout)findViewById(R.id.main);
+//        int w = mainLayout.getWidth();
+//        int h = mainLayout.getHeight();
 
+//        mainLayout.setRotation(45.0f);
+//        mainLayout.setTranslationX((w - h) / 2);
+//        mainLayout.setTranslationY((h - w) / 2);
 //        mainLayout.setRotation(270.0f);
-        mainLayout.setTranslationX((w - h) / 2);
-        mainLayout.setTranslationY((h - w) / 2);
+//        mainLayout.setTranslationX(20);
+//        mainLayout.setTranslationY(20);
 //
-//        WebView xmlWebView = new WebView(this);
 //        xmlWebView.loadUrl("http://www.google.com");
-//        mainLayout.addView(xmlWebView);
-//
+
 //        ViewGroup.LayoutParams lp = (ViewGroup.LayoutParams) mainLayout.getLayoutParams();
 //        lp.height = w;
 //        lp.width = h;
-        mainLayout.requestLayout();
+//        mainLayout.invalidate();
 
 
 
