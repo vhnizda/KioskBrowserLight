@@ -16,8 +16,6 @@ import android.webkit.WebSettings;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.FrameLayout;
 import android.view.Display;
-import android.graphics.Point;
-import android.widget.AbsoluteLayout;
 import android.view.ViewGroup;
 
 public class Kiosk extends Activity {
@@ -38,22 +36,22 @@ public class Kiosk extends Activity {
         // Original code - load layout
         setContentView(R.layout.activity_kiosk);
 
-//        // Change layout of outer frame
-//        RelativeLayout myRelLayout = (RelativeLayout)findViewById(R.id.main);
-//        LayoutParams relLayoutParams = myRelLayout.getLayoutParams();
-//        int width = relLayoutParams.width;
-//        int height = relLayoutParams.height;
-//        int temp = relLayoutParams.height;
-//        relLayoutParams.height = relLayoutParams.width;
-//        relLayoutParams.width = temp;
-
-        // Create webview
-//        xmlWebView = new WebView(this);
-        xmlWebView = (WebView)findViewById(R.id.myBrowser);
-
+        // Get the current display dimensions
         Display display = getWindowManager().getDefaultDisplay();
         int width = display.getWidth();
         int height = display.getHeight();
+
+//        // Change layout of outer frame to oversize square to prevent cropping
+        RelativeLayout myRelLayout = (RelativeLayout)findViewById(R.id.main);
+        LayoutParams layoutParams = myRelLayout.getLayoutParams();
+        layoutParams.height = width;
+        layoutParams.width = width;
+
+        // Get the webview
+//        xmlWebView = new WebView(this);
+        xmlWebView = (WebView)findViewById(R.id.myBrowser);
+
+
 
 
         // Change settings on webview
