@@ -11,10 +11,6 @@ import android.app.ActionBar;
 import android.webkit.WebViewClient;
 import android.view.ViewParent;
 import android.view.ViewGroup.LayoutParams;
-import android.graphics.Color;
-import android.webkit.WebSettings;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.FrameLayout;
 import android.view.Display;
 import android.view.ViewGroup;
 
@@ -70,9 +66,9 @@ public class Kiosk extends Activity {
 
 //            xmlWebView.getSettings().setBuiltInZoomControls(true);
             xmlWebView.loadUrl("http://ts.transitscreen.com/index.php/screen/index/296500");
+//            xmlWebView.loadUrl("http://transitscreenstaging.herokuapp.com/index.php/screen/index/296500");
 //            xmlWebView.loadUrl("http://www.google.com");
 //            xmlWebView.measure(height,width);
-//            xmlWebView.clearView();
 
 
 //            RelativeLayout.LayoutParams myLayout = new RelativeLayout.LayoutParams(height,width);
