@@ -1,19 +1,21 @@
 package com.vaclavhnizda.kioskbrowserlight;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.webkit.WebSettings;
+import android.widget.RelativeLayout;
 import android.webkit.WebView;
 import android.view.View;
 import android.app.ActionBar;
+import android.webkit.WebViewClient;
+import android.view.ViewGroup.LayoutParams;
+import android.graphics.Color;
+import android.webkit.WebSettings;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.FrameLayout;
 import android.view.Display;
 import android.graphics.Point;
-import android.widget.RelativeLayout;
 import android.widget.AbsoluteLayout;
 import android.view.ViewGroup;
 
@@ -38,6 +40,10 @@ public class Kiosk extends Activity {
         // Create webview
         xmlWebView = new WebView(this);
 
+        Display display = getWindowManager().getDefaultDisplay();
+        int width = display.getWidth();
+        int height = display.getHeight();
+
         // Add webview to screen layout
         ((RelativeLayout)findViewById(R.id.main)).addView(xmlWebView);
 
@@ -57,7 +63,22 @@ public class Kiosk extends Activity {
             xmlWebView.getSettings().setJavaScriptEnabled(true);
 
             xmlWebView.getSettings().setBuiltInZoomControls(true);
+//            xmlWebView.loadUrl("http://ts.transitscreen.com/index.php/screen/index/296500");
             xmlWebView.loadUrl("http://www.google.com");
+            xmlWebView.setRotation(90.0f);
+
+            RelativeLayout.LayoutParams myLayout = new RelativeLayout.LayoutParams(height,width);
+            xmlWebView.setLayoutParams(myLayout);
+
+            // Override loading of a new browser, open internally only!
+            // http://stackoverflow.com/questions/7308904/link-should-be-open-in-same-web-view-in-android
+            xmlWebView.setWebViewClient(new WebViewClient() {
+                @Override
+                public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                    view.loadUrl(url);
+                    return false;
+                }
+            });
         }
 
 
