@@ -9,6 +9,7 @@ import android.webkit.WebView;
 import android.view.View;
 import android.app.ActionBar;
 import android.webkit.WebViewClient;
+import android.view.ViewParent;
 import android.view.ViewGroup.LayoutParams;
 import android.graphics.Color;
 import android.webkit.WebSettings;
@@ -37,15 +38,23 @@ public class Kiosk extends Activity {
         // Original code - load layout
         setContentView(R.layout.activity_kiosk);
 
+//        // Change layout of outer frame
+//        RelativeLayout myRelLayout = (RelativeLayout)findViewById(R.id.main);
+//        LayoutParams relLayoutParams = myRelLayout.getLayoutParams();
+//        int width = relLayoutParams.width;
+//        int height = relLayoutParams.height;
+//        int temp = relLayoutParams.height;
+//        relLayoutParams.height = relLayoutParams.width;
+//        relLayoutParams.width = temp;
+
         // Create webview
-        xmlWebView = new WebView(this);
+//        xmlWebView = new WebView(this);
+        xmlWebView = (WebView)findViewById(R.id.myBrowser);
 
         Display display = getWindowManager().getDefaultDisplay();
         int width = display.getWidth();
         int height = display.getHeight();
 
-        // Add webview to screen layout
-        ((RelativeLayout)findViewById(R.id.main)).addView(xmlWebView);
 
         // Change settings on webview
         if(savedInstanceState != null)
@@ -54,21 +63,31 @@ public class Kiosk extends Activity {
         }
         else
         {
-//            xmlWebView.setRotation(45.0f);
-            // turn off harware accelleration to all rotation to work!!
+            // turn off hardware acceleration to allow the rotation to work!!
             // http://stackoverflow.com/questions/18684172/webview-setrotation-creates-a-blank-page
             xmlWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-
+            xmlWebView.setRotation(90.0f);
             // Enable Javascript
             xmlWebView.getSettings().setJavaScriptEnabled(true);
 
-            xmlWebView.getSettings().setBuiltInZoomControls(true);
-//            xmlWebView.loadUrl("http://ts.transitscreen.com/index.php/screen/index/296500");
-            xmlWebView.loadUrl("http://www.google.com");
-            xmlWebView.setRotation(90.0f);
+//            xmlWebView.getSettings().setBuiltInZoomControls(true);
+            xmlWebView.loadUrl("http://ts.transitscreen.com/index.php/screen/index/296500");
+//            xmlWebView.loadUrl("http://www.google.com");
+//            xmlWebView.measure(height,width);
+//            xmlWebView.clearView();
 
-            RelativeLayout.LayoutParams myLayout = new RelativeLayout.LayoutParams(height,width);
-            xmlWebView.setLayoutParams(myLayout);
+
+//            RelativeLayout.LayoutParams myLayout = new RelativeLayout.LayoutParams(height,width);
+            ViewGroup.LayoutParams myLayout = xmlWebView.getLayoutParams();
+            ViewParent test = xmlWebView.getParent();
+            myLayout.height = width;
+            myLayout.width = height;
+            xmlWebView.setX(0);
+            xmlWebView.setY(0);
+            xmlWebView.setInitialScale(80);
+
+//            xmlWebView.setLayoutParams(myLayout);
+//            xmlWebView.setFitsSystemWindows(true);
 
             // Override loading of a new browser, open internally only!
             // http://stackoverflow.com/questions/7308904/link-should-be-open-in-same-web-view-in-android
@@ -117,42 +136,6 @@ public class Kiosk extends Activity {
 //        lp.height = w;
 //        lp.width = h;
 //        mainLayout.invalidate();
-
-
-
-
-//        // Gets the dimensions of the screen.
-//        Display display = getWindowManager().getDefaultDisplay();
-//        Point size = new Point();
-//        display.getSize(size);
-
-
-
-
-        // One idea of creating everything here..
-
-//        FrameLayout myFrame = new FrameLayout(this);
-//        myFrame.setBackgroundColor(Color.BLACK);
-//        int oldBottom = myFrame.getBottom();
-//        //myFrame.setRotation(90);
-//
-//
-//        //Webview & Rotation
-//        WebView webView = new WebView(this);                    // Creates a new Webview
-//        webView.getSettings().setJavaScriptEnabled(true);       // Enables Javascript for webpages
-//        webView.setInitialScale(60);                            // Zooms out initially to 50% for smaller screens
-//        webView.setRotation(90);
-////        webView.getSettings().setTextZoom(3);                   // Zooms text size down
-//        //webView.setBackgroundColor(Color.BLACK);
-//        webView.loadUrl("http://ts.transitscreen.com/index.php/screen/index/111");
-////        webView.loadUrl("http://ts.transitscreen.com/index.php/screen/index/296500");
-//        //webView.loadUrl("http://knowledgeboxes.bitbucket.org");
-//
-////        setContentView(webView);                                // How webpage get's pushed to device screen
-//
-//        //setContentView(webView);
-//        myFrame.addView(webView);
-//        setContentView(myFrame);
 
     }
 
