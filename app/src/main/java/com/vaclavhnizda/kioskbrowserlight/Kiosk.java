@@ -37,7 +37,7 @@ public class Kiosk extends Activity {
         int width = display.getWidth();
         int height = display.getHeight();
 
-        // Change layout of outer frame to oversize square to prevent cropping
+        // Change layout of outer frame to oversize square to prevent cropping of children
         RelativeLayout myRelLayout = (RelativeLayout)findViewById(R.id.main);
         LayoutParams layoutParams = myRelLayout.getLayoutParams();
         layoutParams.height = width;
@@ -48,53 +48,26 @@ public class Kiosk extends Activity {
         xmlWebView = (WebView)findViewById(R.id.myBrowser);
 
 
+        xmlWebView.getSettings().setJavaScriptEnabled(true);    // Enable Javascript
+        xmlWebView.loadUrl(WebPageList.GetUrl(1));              // Load Webpage
+        xmlWebView.setInitialScale(80);     //Set Scale - smaller for smaller screens!
 
 
-        // Change settings on webview
-        if(savedInstanceState != null)
-        {
-            xmlWebView.restoreState(savedInstanceState);
+        // http://stackoverflow.com/questions/18684172/webview-setrotation-creates-a-blank-page
+        xmlWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);// Disable hardware acceleration to allow rotation
+        xmlWebView.setRotation(90.0f);                          // Rotate Webpage
+
+
+        //Adjust screen if rotated sideways
+        if(xmlWebView.getRotation() == 90 || xmlWebView.getRotation() == 270) {
+            float temp1 = (width - height) / 2;
+            xmlWebView.setTranslationY(-temp1);
+
+            ViewGroup.LayoutParams myLayout = xmlWebView.getLayoutParams(); // Extract Layout
+            myLayout.height = width;            // Flip dimension
+            myLayout.width = height;            // Flip dimension
+
         }
-        else
-        {
-            // turn off hardware acceleration to allow the rotation to work!!
-            // http://stackoverflow.com/questions/18684172/webview-setrotation-creates-a-blank-page
-            xmlWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-            xmlWebView.setRotation(90.0f);
-            // Enable Javascript
-            xmlWebView.getSettings().setJavaScriptEnabled(true);
-
-            xmlWebView.getSettings().setBuiltInZoomControls(true);
-            xmlWebView.loadUrl("http://ts.transitscreen.com/index.php/screen/index/296500");  // 1776 TS sign
-//            xmlWebView.loadUrl("http://transitscreenstaging.herokuapp.com/index.php/screen/index/296500");  //heroku test
-//            xmlWebView.loadUrl("http://secretdesignproject.com/demo/ts/3/index.php/screen/index/941065");  // white version of TS
-//            xmlWebView.loadUrl("http://www.google.com"); // google test
-//            xmlWebView.measure(height,width);
-
-
-//            RelativeLayout.LayoutParams myLayout = new RelativeLayout.LayoutParams(height,width);
-            ViewGroup.LayoutParams myLayout = xmlWebView.getLayoutParams();
-            ViewParent test = xmlWebView.getParent();
-            myLayout.height = width;
-            myLayout.width = height;
-            xmlWebView.setX(0);
-            xmlWebView.setY(0);
-            xmlWebView.setInitialScale(80);
-
-//            xmlWebView.setLayoutParams(myLayout);
-//            xmlWebView.setFitsSystemWindows(true);
-
-            // Override loading of a new browser, open internally only!
-            // http://stackoverflow.com/questions/7308904/link-should-be-open-in-same-web-view-in-android
-            xmlWebView.setWebViewClient(new WebViewClient() {
-                @Override
-                public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                    view.loadUrl(url);
-                    return false;
-                }
-            });
-        }
-
 
         //Hide all the status bars
         View decorView = getWindow().getDecorView();
@@ -105,37 +78,6 @@ public class Kiosk extends Activity {
         // status bar is hidden, so hide that too if necessary.
         ActionBar actionBar = getActionBar();
         actionBar.hide();
-
-        //Moves the webview to center of screen: compensates for oversize parent layout
-        if(xmlWebView.getRotation() == 90 || xmlWebView.getRotation() == 270) {
-            float temp1 = (width - height) / 2;
-            xmlWebView.setTranslationY(-temp1);
-        }
-
-//        // Test existing XML data
-//        WebView xmlWebView = (WebView)findViewById(R.id.testWebpageView);
-//        xmlWebView.loadUrl("www.google.com");
-//        xmlWebView.setRotation(20);
-
-
-//        //Attempt to rotate the screen - http://stackoverflow.com/questions/21355784/android-rotate-whole-layout
-//        RelativeLayout mainLayout = (RelativeLayout)findViewById(R.id.main);
-//        int w = mainLayout.getWidth();
-//        int h = mainLayout.getHeight();
-
-//        mainLayout.setRotation(45.0f);
-//        mainLayout.setTranslationX((w - h) / 2);
-//        mainLayout.setTranslationY((h - w) / 2);
-//        mainLayout.setRotation(270.0f);
-//        mainLayout.setTranslationX(20);
-//        mainLayout.setTranslationY(20);
-//
-//        xmlWebView.loadUrl("http://www.google.com");
-
-//        ViewGroup.LayoutParams lp = (ViewGroup.LayoutParams) mainLayout.getLayoutParams();
-//        lp.height = w;
-//        lp.width = h;
-//        mainLayout.invalidate();
 
     }
 
