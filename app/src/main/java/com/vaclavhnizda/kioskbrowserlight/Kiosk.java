@@ -107,8 +107,10 @@ public class Kiosk extends Activity {
         actionBar.hide();
 
         //Moves the webview to center of screen: compensates for oversize parent layout
-        float temp1 = (width-height)/2;
-        xmlWebView.setTranslationY(-temp1);
+        if(xmlWebView.getRotation() == 90 || xmlWebView.getRotation() == 270) {
+            float temp1 = (width - height) / 2;
+            xmlWebView.setTranslationY(-temp1);
+        }
 
 //        // Test existing XML data
 //        WebView xmlWebView = (WebView)findViewById(R.id.testWebpageView);
