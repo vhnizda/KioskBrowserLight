@@ -4,15 +4,12 @@
     android:id="@+id/main"
     android:layout_height="fill_parent"
     android:clipChildren="false"
-    android:layout_centerHorizontal="true"
-    android:layout_centerVertical="true"
-    android:layout_margin="0dp"
-    android:background="#002200">
+    android:background="#990000">
     <WebView
+        style="margin : 0; padding : 0"
         android:id="@+id/myBrowser"
+        android:layout_centerHorizontal="true"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_marginTop="-120dp"
-        android:layout_marginLeft="120dp">
+        android:layout_height="fill_parent">
     </WebView>
 </RelativeLayout>

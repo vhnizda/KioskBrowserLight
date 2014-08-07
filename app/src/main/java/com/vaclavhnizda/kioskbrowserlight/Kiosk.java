@@ -37,7 +37,7 @@ public class Kiosk extends Activity {
         int width = display.getWidth();
         int height = display.getHeight();
 
-//        // Change layout of outer frame to oversize square to prevent cropping
+        // Change layout of outer frame to oversize square to prevent cropping
         RelativeLayout myRelLayout = (RelativeLayout)findViewById(R.id.main);
         LayoutParams layoutParams = myRelLayout.getLayoutParams();
         layoutParams.height = width;
@@ -106,6 +106,9 @@ public class Kiosk extends Activity {
         ActionBar actionBar = getActionBar();
         actionBar.hide();
 
+        //Moves the webview to center of screen: compensates for oversize parent layout
+        float temp1 = (width-height)/2;
+        xmlWebView.setTranslationY(-temp1);
 
 //        // Test existing XML data
 //        WebView xmlWebView = (WebView)findViewById(R.id.testWebpageView);
