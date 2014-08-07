@@ -37,11 +37,11 @@ public class Kiosk extends Activity {
         int width = display.getWidth();
         int height = display.getHeight();
 
-////        // Change layout of outer frame to oversize square to prevent cropping
-//        RelativeLayout myRelLayout = (RelativeLayout)findViewById(R.id.main);
-//        LayoutParams layoutParams = myRelLayout.getLayoutParams();
-//        layoutParams.height = width;
-//        layoutParams.width = width;
+//        // Change layout of outer frame to oversize square to prevent cropping
+        RelativeLayout myRelLayout = (RelativeLayout)findViewById(R.id.main);
+        LayoutParams layoutParams = myRelLayout.getLayoutParams();
+        layoutParams.height = width;
+        layoutParams.width = width;
 
         // Get the webview
 //        xmlWebView = new WebView(this);
@@ -60,25 +60,25 @@ public class Kiosk extends Activity {
             // turn off hardware acceleration to allow the rotation to work!!
             // http://stackoverflow.com/questions/18684172/webview-setrotation-creates-a-blank-page
             xmlWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-            xmlWebView.setRotation(180.0f);
+            xmlWebView.setRotation(90.0f);
             // Enable Javascript
             xmlWebView.getSettings().setJavaScriptEnabled(true);
 
-//            xmlWebView.getSettings().setBuiltInZoomControls(true);
-//            xmlWebView.loadUrl("http://ts.transitscreen.com/index.php/screen/index/296500");
-            xmlWebView.loadUrl("http://secretdesignproject.com/demo/ts/3/index.php/screen/index/941065");
-//            xmlWebView.loadUrl("http://transitscreenstaging.herokuapp.com/index.php/screen/index/296500");
-//            xmlWebView.loadUrl("http://www.google.com");
+            xmlWebView.getSettings().setBuiltInZoomControls(true);
+            xmlWebView.loadUrl("http://ts.transitscreen.com/index.php/screen/index/296500");  // 1776 TS sign
+//            xmlWebView.loadUrl("http://transitscreenstaging.herokuapp.com/index.php/screen/index/296500");  //heroku test
+//            xmlWebView.loadUrl("http://secretdesignproject.com/demo/ts/3/index.php/screen/index/941065");  // white version of TS
+//            xmlWebView.loadUrl("http://www.google.com"); // google test
 //            xmlWebView.measure(height,width);
 
 
 //            RelativeLayout.LayoutParams myLayout = new RelativeLayout.LayoutParams(height,width);
             ViewGroup.LayoutParams myLayout = xmlWebView.getLayoutParams();
             ViewParent test = xmlWebView.getParent();
-//            myLayout.height = width;
-//            myLayout.width = height;
-//            xmlWebView.setX(0);
-//            xmlWebView.setY(0);
+            myLayout.height = width;
+            myLayout.width = height;
+            xmlWebView.setX(0);
+            xmlWebView.setY(0);
             xmlWebView.setInitialScale(80);
 
 //            xmlWebView.setLayoutParams(myLayout);

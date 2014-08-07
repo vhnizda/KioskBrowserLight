@@ -10,8 +10,9 @@
     android:background="#002200">
     <WebView
         android:id="@+id/myBrowser"
-        android:translationX="@dimen/activity_vertical_margin"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:layout_marginTop="-120dp"
+        android:layout_marginLeft="120dp">
     </WebView>
 </RelativeLayout>
