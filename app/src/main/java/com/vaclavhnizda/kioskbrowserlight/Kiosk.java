@@ -38,7 +38,7 @@ public class Kiosk extends Activity {
         layoutParams.width = width;
 
         // Get webview #1
-        xmlWebView = (WebView)findViewById(R.id.myBrowser);
+        xmlWebView = (WebView)findViewById(R.id.myBrowser1);
 
         // Webpage Initial settings
         xmlWebView.getSettings().setJavaScriptEnabled(true);    // Enable Javascript
