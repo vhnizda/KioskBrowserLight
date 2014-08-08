@@ -47,7 +47,6 @@ public class Kiosk extends Activity {
 
 
         // Webpage Rotation Changes
-        // http://stackoverflow.com/questions/18684172/webview-setrotation-creates-a-blank-page
         xmlWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);// Disable hardware acceleration to allow rotation
         xmlWebView.setRotation(90.0f);                          // Rotate Webpage
 
@@ -95,3 +94,7 @@ public class Kiosk extends Activity {
         return super.onOptionsItemSelected(item);
     }
 }
+
+// Sources of inspiration
+// http://stackoverflow.com/questions/21355784/android-rotate-whole-layout
+// http://stackoverflow.com/questions/18684172/webview-setrotation-creates-a-blank-page
