@@ -37,7 +37,7 @@ public class Kiosk extends Activity {
         layoutParams.height = width;
         layoutParams.width = width;
 
-        // Get the webview
+        // Get webview #1
         xmlWebView = (WebView)findViewById(R.id.myBrowser);
 
         // Webpage Initial settings
@@ -56,6 +56,7 @@ public class Kiosk extends Activity {
         if(xmlWebView.getRotation() == 90 || xmlWebView.getRotation() == 270) {
             float temp1 = (width - height) / 2;
             xmlWebView.setTranslationY(-temp1);
+            xmlWebView.setTranslationX(temp1);
 
             ViewGroup.LayoutParams myLayout = xmlWebView.getLayoutParams(); // Extract Layout
             myLayout.height = width;            // Flip dimension

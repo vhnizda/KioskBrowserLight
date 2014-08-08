@@ -3,11 +3,11 @@
     android:id="@+id/main"
     android:layout_height="fill_parent"
     android:clipChildren="false"
+
     android:background="#004400">
     <WebView
         style="margin : 0; padding : 0"
         android:id="@+id/myBrowser"
-        android:layout_centerHorizontal="true"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
     </WebView>
