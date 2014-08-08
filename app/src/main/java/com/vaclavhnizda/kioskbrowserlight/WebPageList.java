@@ -20,7 +20,7 @@ public class WebPageList {
     {
         CheckSingleton();
 
-        if(1 <= number && number <= 4) {
+        if(1 <= number && number <= urls.length) {
             return urls[number - 1];
         }
         else

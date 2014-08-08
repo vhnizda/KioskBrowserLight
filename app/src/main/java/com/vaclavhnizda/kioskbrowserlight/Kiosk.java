@@ -8,23 +8,14 @@ import android.widget.RelativeLayout;
 import android.webkit.WebView;
 import android.view.View;
 import android.app.ActionBar;
-import android.webkit.WebViewClient;
-import android.view.ViewParent;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Display;
 import android.view.ViewGroup;
+//import android.graphics.Point;
 
 public class Kiosk extends Activity {
 
     private WebView xmlWebView = null;
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState)
-    {
-        super.onSaveInstanceState(outState);
-        xmlWebView.saveState(outState);
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +23,13 @@ public class Kiosk extends Activity {
         // Original code - load layout
         setContentView(R.layout.activity_kiosk);
 
-        // Get the current display dimensions
+        // Get the current device display dimensions
         Display display = getWindowManager().getDefaultDisplay();
         int width = display.getWidth();
         int height = display.getHeight();
+//        Point myPoints = new Point(); //Alternate code to display.getWidth()??
+//        display.getSize(myPoints);
+//        int width = myPoints.;
 
         // Change layout of outer frame to oversize square to prevent cropping of children
         RelativeLayout myRelLayout = (RelativeLayout)findViewById(R.id.main);
@@ -44,15 +38,15 @@ public class Kiosk extends Activity {
         layoutParams.width = width;
 
         // Get the webview
-//        xmlWebView = new WebView(this);
         xmlWebView = (WebView)findViewById(R.id.myBrowser);
 
-
+        // Webpage Initial settings
         xmlWebView.getSettings().setJavaScriptEnabled(true);    // Enable Javascript
         xmlWebView.loadUrl(WebPageList.GetUrl(1));              // Load Webpage
         xmlWebView.setInitialScale(80);     //Set Scale - smaller for smaller screens!
 
 
+        // Webpage Rotation Changes
         // http://stackoverflow.com/questions/18684172/webview-setrotation-creates-a-blank-page
         xmlWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);// Disable hardware acceleration to allow rotation
         xmlWebView.setRotation(90.0f);                          // Rotate Webpage
