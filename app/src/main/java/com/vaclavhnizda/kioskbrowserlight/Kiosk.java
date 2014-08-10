@@ -63,15 +63,15 @@ public class Kiosk extends Activity {
 
         }
 
-        //Hide all the status bars
-        View decorView = getWindow().getDecorView();
-        // Hide the status bar.
-        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-        decorView.setSystemUiVisibility(uiOptions);
-        // Remember that you should never show the action bar if the
-        // status bar is hidden, so hide that too if necessary.
-        ActionBar actionBar = getActionBar();
-        actionBar.hide();
+//        //Hide all the status bars
+//        View decorView = getWindow().getDecorView();
+//        // Hide the status bar.
+//        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+//        decorView.setSystemUiVisibility(uiOptions);
+//        // Remember that you should never show the action bar if the
+//        // status bar is hidden, so hide that too if necessary.
+//        ActionBar actionBar = getActionBar();
+//        actionBar.hide();
 
     }
 
@@ -88,7 +88,8 @@ public class Kiosk extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == R.id.kiosk_settings) {
+
             return true;
         }
         return super.onOptionsItemSelected(item);
