@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 import android.webkit.WebView;
 import android.view.View;
 import android.app.ActionBar;
+import android.content.Intent;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Display;
 import android.view.ViewGroup;
@@ -89,6 +90,12 @@ public class Kiosk extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.kiosk_settings) {
+
+            Intent intent = new Intent(this, com.vaclavhnizda.kioskbrowserlight.Menu.class);
+//            EditText editText = (EditText) findViewById(R.id.edit_message);
+//            String message = editText.getText().toString();
+//            intent.putExtra(EXTRA_MESSAGE, message);
+            startActivity(intent);
 
             return true;
         }
