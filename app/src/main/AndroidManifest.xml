@@ -26,7 +26,7 @@
             android:screenOrientation="landscape"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:name=".Menu"
-            android:label="KioskBrowserLight" >
+            android:label="@string/settings_name" >
 
         </activity>
     </application>

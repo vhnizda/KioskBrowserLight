@@ -44,7 +44,8 @@ public class Kiosk extends Activity {
         // Webpage Initial settings
         xmlWebView.getSettings().setJavaScriptEnabled(true);    // Enable Javascript
         xmlWebView.loadUrl(WebPageList.GetUrl(1));              // Load Webpage
-        xmlWebView.setInitialScale(80);     //Set Scale - smaller for smaller screens!
+        xmlWebView.setInitialScale(70);     //Set Scale - smaller for smaller screens!
+//        xmlWebView.getSettings().setDefaultFontSize(30);  //Set font size
 
 
         // Webpage Rotation Changes

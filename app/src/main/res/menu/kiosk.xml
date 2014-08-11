@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Kiosk" >
     <item android:id="@+id/kiosk_settings"
-        android:title="@string/action_settings"
+        android:title="@string/settings_name"
         android:orderInCategory="100"
         android:showAsAction="never" />
 </menu>
