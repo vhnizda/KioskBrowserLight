@@ -1,6 +1,8 @@
 package com.vaclavhnizda.kioskbrowserlight;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,13 +18,34 @@ import android.view.ViewGroup;
 
 public class Kiosk extends Activity {
 
-    private WebView xmlWebView = null;
+    private static WebView xmlWebView = null;
+    private static SharedPreferences preferences;
+    private static final String URL_KEY = "url";
+    private static String url_Address = null;
+    private static final String ZOOM_KEY = "webpage_zoom";
+    private static int zoom_Value = 70;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Original code - load layout
         setContentView(R.layout.activity_kiosk);
+
+        //-- Load Saved Settings --------------------------------------------------------------//
+        preferences = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit_Prefs = preferences.edit();
+
+        preferences.getString(URL_KEY,url_Address);
+//        if(url_Address == null)
+//        {
+//            url_Address = "http://www.google.com";
+//            edit_Prefs.putString(URL_KEY,url_Address);
+//        }
+
+
+
+        //-- Setup Layout Settings ------------------------------------------------------------//
 
         // Get the current device display dimensions
         Display display = getWindowManager().getDefaultDisplay();
@@ -43,7 +66,7 @@ public class Kiosk extends Activity {
 
         // Webpage Initial settings
         xmlWebView.getSettings().setJavaScriptEnabled(true);    // Enable Javascript
-        xmlWebView.loadUrl(WebPageList.GetUrl(1));              // Load Webpage
+        xmlWebView.loadUrl(url_Address);              // Load Webpage
         xmlWebView.setInitialScale(70);     //Set Scale - smaller for smaller screens!
 //        xmlWebView.getSettings().setDefaultFontSize(30);  //Set font size
 
@@ -77,6 +100,7 @@ public class Kiosk extends Activity {
 
     }
 
+    //----- Menu Settings ---------------------------------------------------------------------//
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
