@@ -46,10 +46,10 @@
 
                     <TableRow>
                         <TextView
-                            android:text="Test"
+                            android:text="Setting:"
                             android:textColor="@color/text_on_black"/>
                         <TextView
-                            android:text="Test2-----------------------------------------------"
+                            android:text="More settings to come in the future"
                             android:textColor="@color/text_on_black"/>
                     </TableRow>
 
