@@ -48,9 +48,10 @@
                         <TextView
                             android:text="Setting:"
                             android:textColor="@color/text_on_black"/>
-                        <TextView
-                            android:text="More settings to come in the future"
-                            android:textColor="@color/text_on_black"/>
+                        <SeekBar
+                            android:layout_width="fill_parent"
+                            android:max="200"
+                            />
                     </TableRow>
 
                 </TableLayout>

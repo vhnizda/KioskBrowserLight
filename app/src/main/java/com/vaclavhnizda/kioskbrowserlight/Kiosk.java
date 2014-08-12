@@ -78,7 +78,7 @@ public class Kiosk extends Activity {
 
         // Webpage Rotation Changes
         xmlWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);// Disable hardware acceleration to allow rotation
-        xmlWebView.setRotation(90.0f);                          // Rotate Webpage
+        xmlWebView.setRotation(2700.0f);                          // Rotate Webpage
 
 
         //Adjust screen if rotated sideways
