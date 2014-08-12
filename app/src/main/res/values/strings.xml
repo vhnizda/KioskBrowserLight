@@ -3,6 +3,6 @@
 
     <string name="app_name">Kiosk Browser Light</string>
     <string name="settings_name">Kiosk Settings</string>
-    <string name="menu_url">URL:  </string>
+    <string name="menu_url_name">URL:  </string>
 
 </resources>

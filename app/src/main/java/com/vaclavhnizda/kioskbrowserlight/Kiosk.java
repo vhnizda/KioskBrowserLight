@@ -41,6 +41,7 @@ public class Kiosk extends Activity {
         {
             url_Address = "http://www.google.com";
             edit_Prefs.putString(URL_KEY,url_Address);
+            edit_Prefs.commit();
         }
 
 
@@ -134,6 +135,13 @@ public class Kiosk extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+//    @Override
+//    protected void onStart(){
+//        super.onStart();
+//        preferences.getString(URL_KEY,url_Address);
+//        xmlWebView.loadUrl(url_Address);
+//    }
 
 //    public static void SetURL(String url_String)
 //    {
