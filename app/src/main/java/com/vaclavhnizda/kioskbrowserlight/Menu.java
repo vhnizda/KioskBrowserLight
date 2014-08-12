@@ -27,21 +27,16 @@ public class Menu extends Activity{
         setContentView(R.layout.activity_menu);
 
         //-- Load Saved Settings --------------------------------------------------------------//
-        preferences = getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor edit_Prefs = preferences.edit();
+        preferences = getSharedPreferences("kiosk_save",Context.MODE_PRIVATE);
 
         TextView menu_url_location = (TextView)findViewById(R.id.menu_url_address);
 
-        preferences.getString(URL_KEY,url_Address);
+        url_Address = preferences.getString(URL_KEY,null);
         if(url_Address == null)
         {
             url_Address = "failed to load URL";
-            menu_url_location.setText(url_Address);
         }
-        else
-        {
-            menu_url_location.setText(url_Address);
-        }
+        menu_url_location.setText(url_Address);
 
     }
 
@@ -49,7 +44,8 @@ public class Menu extends Activity{
         EditText temp = (EditText)findViewById(R.id.menu_url_address);
         String myURL = temp.getText().toString();
 
-        SharedPreferences.Editor myEditor = getPreferences(Context.MODE_PRIVATE).edit();
+        SharedPreferences.Editor myEditor = getSharedPreferences("kiosk_save",Context.MODE_PRIVATE).edit();
+
         myEditor.putString(URL_KEY,myURL);//add to save settings
         myEditor.commit(); // commit changes
     }

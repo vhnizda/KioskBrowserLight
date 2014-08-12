@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Display;
 import android.view.ViewGroup;
+import android.webkit.WebViewClient;
 //import android.graphics.Point;
 
 public class Kiosk extends Activity {
@@ -33,15 +34,17 @@ public class Kiosk extends Activity {
         setContentView(R.layout.activity_kiosk);
 
         //-- Load Saved Settings --------------------------------------------------------------//
-        preferences = getPreferences(Context.MODE_PRIVATE);
+        preferences = getSharedPreferences("kiosk_save", Context.MODE_PRIVATE);
         SharedPreferences.Editor edit_Prefs = preferences.edit();
 
-        preferences.getString(URL_KEY,url_Address);
+        url_Address = preferences.getString(URL_KEY,null);
         if(url_Address == null)
         {
             url_Address = "http://www.google.com";
             edit_Prefs.putString(URL_KEY,url_Address);
             edit_Prefs.commit();
+            url_Address = null; //Test
+            url_Address = preferences.getString(URL_KEY,url_Address);
         }
 
 
@@ -64,6 +67,7 @@ public class Kiosk extends Activity {
 
         // Get webview #1
         xmlWebView = (WebView)findViewById(R.id.myBrowser1);
+        xmlWebView.setWebViewClient(new WebBrowser());
 
         // Webpage Initial settings
         xmlWebView.getSettings().setJavaScriptEnabled(true);    // Enable Javascript
@@ -104,7 +108,7 @@ public class Kiosk extends Activity {
     @Override
     protected void onResume(){
         super.onResume();
-        preferences.getString(URL_KEY,url_Address);
+        url_Address = preferences.getString(URL_KEY,url_Address);
         xmlWebView.loadUrl(url_Address);
     }
 
@@ -136,21 +140,17 @@ public class Kiosk extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-//    @Override
-//    protected void onStart(){
-//        super.onStart();
-//        preferences.getString(URL_KEY,url_Address);
-//        xmlWebView.loadUrl(url_Address);
-//    }
+    @Override
+    protected void onStop(){
+        super.onStop();
 
-//    public static void SetURL(String url_String)
-//    {
-//        if(xmlWebView != null) {
-//            xmlWebView.loadUrl(url_String);
-//        }
-//    }
+        xmlWebView.clearCache(true);
+    }
 }
+
+
 
 // Sources of inspiration
 // http://stackoverflow.com/questions/21355784/android-rotate-whole-layout
 // http://stackoverflow.com/questions/18684172/webview-setrotation-creates-a-blank-page
+// http://www.tutorialspoint.com/android/android_webview_layout.htm
