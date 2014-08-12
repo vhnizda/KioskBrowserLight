@@ -40,7 +40,7 @@ public class Menu extends Activity{
 
     }
 
-    public void UpdateSettings(View view){
+    public void updateSettings(View view){
         EditText temp = (EditText)findViewById(R.id.menu_url_address);
         String myURL = temp.getText().toString();
 
@@ -48,6 +48,11 @@ public class Menu extends Activity{
 
         myEditor.putString(URL_KEY,myURL);//add to save settings
         myEditor.commit(); // commit changes
+        goBack(view);
+    }
+
+    public void goBack(View view){
+        finish();
     }
 
 }
