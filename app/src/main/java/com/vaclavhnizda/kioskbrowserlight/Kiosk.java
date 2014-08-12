@@ -37,11 +37,11 @@ public class Kiosk extends Activity {
         SharedPreferences.Editor edit_Prefs = preferences.edit();
 
         preferences.getString(URL_KEY,url_Address);
-//        if(url_Address == null)
-//        {
-//            url_Address = "http://www.google.com";
-//            edit_Prefs.putString(URL_KEY,url_Address);
-//        }
+        if(url_Address == null)
+        {
+            url_Address = "http://www.google.com";
+            edit_Prefs.putString(URL_KEY,url_Address);
+        }
 
 
 
@@ -100,6 +100,14 @@ public class Kiosk extends Activity {
 
     }
 
+    @Override
+    protected void onResume(){
+        super.onResume();
+        preferences.getString(URL_KEY,url_Address);
+        xmlWebView.loadUrl(url_Address);
+    }
+
+
     //----- Menu Settings ---------------------------------------------------------------------//
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -126,6 +134,13 @@ public class Kiosk extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+//    public static void SetURL(String url_String)
+//    {
+//        if(xmlWebView != null) {
+//            xmlWebView.loadUrl(url_String);
+//        }
+//    }
 }
 
 // Sources of inspiration
