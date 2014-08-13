@@ -16,9 +16,13 @@ public class Menu extends Activity{
     private static SharedPreferences preferences;
     private static final String KIOSK_FILE = "com.vaclavhnizda.kioskbrowserlight.save";
     private static final String URL_KEY = "com.vaclavhnizda.kioskbrowserlight.url";
-    private static String url_Address;
+    private static String url_address;
     private static final String WEB_ZOOM_KEY = "com.vaclavhnizda.kioskbrowserlight.webpage_zoom";
-    private static int page_zoom_Value;
+    private static int page_zoom_value;
+    private static final String FONT_ZOOM_KEY = "com.vaclavhnizda.kioskbrowserlight.font_zoom";
+    private static int font_zoom_value;
+    private static final String ROTATION_KEY = "com.vaclavhnizda.kioskbrowserlight.rotation";
+    private static int rotation_value;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,23 +34,41 @@ public class Menu extends Activity{
         preferences = getSharedPreferences(KIOSK_FILE,Context.MODE_PRIVATE);
 
         TextView menu_url_location = (TextView)findViewById(R.id.menu_url_address);
+        url_address = preferences.getString(URL_KEY,"failed to load URL");
+        menu_url_location.setText(url_address);
 
-        url_Address = preferences.getString(URL_KEY,null);
-        if(url_Address == null)
-        {
-            url_Address = "failed to load URL";
-        }
-        menu_url_location.setText(url_Address);
+        TextView menu_web_zoom = (TextView)findViewById(R.id.page_zoom_size);
+        page_zoom_value = preferences.getInt(WEB_ZOOM_KEY,100);
+        menu_web_zoom.setText(String.valueOf(page_zoom_value));
+
+        TextView menu_font_zoom = (TextView)findViewById(R.id.font_zoom_size);
+        font_zoom_value = preferences.getInt(FONT_ZOOM_KEY,100);
+        menu_font_zoom.setText(String.valueOf(page_zoom_value));
+
+        TextView menu_rotation = (TextView)findViewById(R.id.webpage_rotation);
+        rotation_value = preferences.getInt(ROTATION_KEY,0);
+        menu_rotation.setText(String.valueOf(rotation_value));
+
 
     }
 
     public void updateSettings(View view){
+        // Get resources
         EditText temp = (EditText)findViewById(R.id.menu_url_address);
-        String myURL = temp.getText().toString();
+        url_address = temp.getText().toString();
+        temp = (EditText)findViewById(R.id.page_zoom_size);
+        page_zoom_value = Integer.parseInt(temp.getText().toString());
+        temp = (EditText)findViewById(R.id.font_zoom_size);
+        font_zoom_value = Integer.parseInt(temp.getText().toString());
+        temp = (EditText)findViewById(R.id.webpage_rotation);
+        rotation_value = Integer.parseInt(temp.getText().toString());
 
+        // Save Values
         SharedPreferences.Editor myEditor = getSharedPreferences("kiosk_save",Context.MODE_PRIVATE).edit();
-
-        myEditor.putString(URL_KEY,myURL);//add to save settings
+        myEditor.putString(URL_KEY,url_address);//add to save settings
+        myEditor.putInt(WEB_ZOOM_KEY,page_zoom_value);
+        myEditor.putInt(FONT_ZOOM_KEY,font_zoom_value);
+        myEditor.putInt(ROTATION_KEY,rotation_value);
         myEditor.commit(); // commit changes
         goBack(view);
     }

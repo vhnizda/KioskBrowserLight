@@ -108,13 +108,13 @@ public class Kiosk extends Activity {
         // Webpage Initial settings
         xmlWebView.getSettings().setJavaScriptEnabled(true);    // Enable Javascript
         xmlWebView.loadUrl(url_address);              // Load Webpage
-        xmlWebView.setInitialScale(70);     //Set Scale - smaller for smaller screens!
+        xmlWebView.setInitialScale(page_zoom_value);     //Set Scale - smaller for smaller screens!
 //        xmlWebView.getSettings().setDefaultFontSize(30);  //Set font size
 
 
         // Webpage Rotation Changes
         xmlWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);// Disable hardware acceleration to allow rotation
-        xmlWebView.setRotation(90.0f);                          // Rotate Webpage
+        xmlWebView.setRotation(rotation_value);                          // Rotate Webpage
 
 
         //Adjust screen if rotated sideways
@@ -128,21 +128,23 @@ public class Kiosk extends Activity {
             myLayout.width = height;            // Flip dimension
 
         }
+        else
+        {
+            xmlWebView.setTranslationY(0);
+            xmlWebView.setTranslationX(0);
 
-        //--  Hide all the status bars  ---------------------------------------------------------//
-        View decorView = getWindow().getDecorView();
-        // Hide the status bar.
-        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-        decorView.setSystemUiVisibility(uiOptions);
-//        mSystemUiHider = SystemUiHider.getInstance(this, contentView, HIDER_FLAGS);
+            ViewGroup.LayoutParams myLayout = xmlWebView.getLayoutParams(); // Extract Layout
+            myLayout.height = height;            // Flip dimension
+            myLayout.width = width;            // Flip dimension
+        }
 
     }
 
     @Override
-    protected void onResume(){
-        super.onResume();
-        url_address = preferences.getString(URL_KEY,url_address);
-        xmlWebView.loadUrl(url_address);
+    protected void onStart(){
+        super.onStart();
+//        url_address = preferences.getString(URL_KEY,"http://www.google.com");
+//        xmlWebView.loadUrl(url_address);
     }
 
 
@@ -190,6 +192,13 @@ public class Kiosk extends Activity {
         else{
             actionBar.show();
         }
+
+        //--  Hide all the status bars  ---------------------------------------------------------//
+        View decorView = getWindow().getDecorView();
+        // Hide the status bar.
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
+//        mSystemUiHider = SystemUiHider.getInstance(this, contentView, HIDER_FLAGS);
     }
 }
 
