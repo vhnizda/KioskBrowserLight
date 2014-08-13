@@ -46,12 +46,35 @@
 
                     <TableRow>
                         <TextView
-                            android:text="Setting:"
+                            android:text="Page Zoom:"
                             android:textColor="@color/text_on_black"/>
-                        <SeekBar
-                            android:layout_width="fill_parent"
-                            android:max="200"
-                            />
+                        <EditText
+                            android:id="@+id/page_zoom_size"
+                            android:layout_width="wrap_content"
+                            android:textColor="@color/text_on_black"
+                            android:inputType="number"/>
+                    </TableRow>
+
+                    <TableRow>
+                        <TextView
+                            android:text="Font Zoom:"
+                            android:textColor="@color/text_on_black"/>
+                        <EditText
+                            android:id="@+id/font_zoom_size"
+                            android:layout_width="wrap_content"
+                            android:textColor="@color/text_on_black"
+                            android:inputType="number"/>
+                    </TableRow>
+
+                    <TableRow>
+                        <TextView
+                            android:text="Orientation:"
+                            android:textColor="@color/text_on_black"/>
+                        <EditText
+                            android:id="@+id/webpage_rotation"
+                            android:layout_width="wrap_content"
+                            android:textColor="@color/text_on_black"
+                            android:inputType="number"/>
                     </TableRow>
 
                 </TableLayout>
