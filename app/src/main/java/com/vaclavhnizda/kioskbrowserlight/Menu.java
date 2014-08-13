@@ -14,10 +14,11 @@ import android.widget.TextView;
 public class Menu extends Activity{
 
     private static SharedPreferences preferences;
-    private static final String URL_KEY = "url";
-    private static String url_Address = null;
-    private static final String ZOOM_KEY = "webpage_zoom";
-    private static int zoom_Value = 70;
+    private static final String KIOSK_FILE = "com.vaclavhnizda.kioskbrowserlight.save";
+    private static final String URL_KEY = "com.vaclavhnizda.kioskbrowserlight.url";
+    private static String url_Address;
+    private static final String WEB_ZOOM_KEY = "com.vaclavhnizda.kioskbrowserlight.webpage_zoom";
+    private static int page_zoom_Value;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +27,7 @@ public class Menu extends Activity{
         setContentView(R.layout.activity_menu);
 
         //-- Load Saved Settings --------------------------------------------------------------//
-        preferences = getSharedPreferences("kiosk_save",Context.MODE_PRIVATE);
+        preferences = getSharedPreferences(KIOSK_FILE,Context.MODE_PRIVATE);
 
         TextView menu_url_location = (TextView)findViewById(R.id.menu_url_address);
 

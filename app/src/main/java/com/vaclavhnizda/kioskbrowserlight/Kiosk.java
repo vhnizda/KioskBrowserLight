@@ -19,12 +19,18 @@ import android.webkit.WebViewClient;
 
 public class Kiosk extends Activity {
 
-    private static WebView xmlWebView = null;
+    private static WebView xmlWebView;
     private static SharedPreferences preferences;
-    private static final String URL_KEY = "url";
-    private static String url_Address = null;
-    private static final String ZOOM_KEY = "webpage_zoom";
-    private static int zoom_Value = 70;
+    private static final String KIOSK_FILE = "com.vaclavhnizda.kioskbrowserlight.save";
+    private static final String URL_KEY = "com.vaclavhnizda.kioskbrowserlight.url";
+    private static String url_address;
+    private static final String WEB_ZOOM_KEY = "com.vaclavhnizda.kioskbrowserlight.webpage_zoom";
+    private static int page_zoom_value;
+    private static final String FONT_ZOOM_KEY = "com.vaclavhnizda.kioskbrowserlight.font_zoom";
+    private static int font_zoom_value;
+    private static final String ROTATION_KEY = "com.vaclavhnizda.kioskbrowserlight.rotation";
+    private static int rotation_value;
+
 
 
     @Override
@@ -34,19 +40,41 @@ public class Kiosk extends Activity {
         setContentView(R.layout.activity_kiosk);
 
         //-- Load Saved Settings --------------------------------------------------------------//
-        preferences = getSharedPreferences("kiosk_save", Context.MODE_PRIVATE);
+        preferences = getSharedPreferences(KIOSK_FILE, Context.MODE_PRIVATE);
         SharedPreferences.Editor edit_Prefs = preferences.edit();
 
-        url_Address = preferences.getString(URL_KEY,null);
-        if(url_Address == null)
+        url_address = preferences.getString(URL_KEY,null);
+        if(url_address == null)
         {
-            url_Address = "http://www.google.com";
-            edit_Prefs.putString(URL_KEY,url_Address);
+            url_address = "http://www.google.com";
+            edit_Prefs.putString(URL_KEY,url_address);
             edit_Prefs.commit();
-            url_Address = null; //Test
-            url_Address = preferences.getString(URL_KEY,url_Address);
         }
 
+        page_zoom_value = preferences.getInt(WEB_ZOOM_KEY, 0);
+        if(page_zoom_value == 0)
+        {
+            page_zoom_value = 100;
+            edit_Prefs.putInt(WEB_ZOOM_KEY,page_zoom_value);
+            edit_Prefs.commit();
+
+        }
+
+        font_zoom_value = preferences.getInt(FONT_ZOOM_KEY, 0);  // setTextZoom(int)
+        if(font_zoom_value == 0)
+        {
+            font_zoom_value = 100;
+            edit_Prefs.putInt(FONT_ZOOM_KEY,font_zoom_value);
+            edit_Prefs.commit();
+        }
+
+        rotation_value = preferences.getInt(ROTATION_KEY, -1);
+        if(rotation_value == -1)
+        {
+            rotation_value = 0;
+            edit_Prefs.putInt(ROTATION_KEY, rotation_value);
+            edit_Prefs.commit();
+        }
 
 
         //-- Setup Layout Settings ------------------------------------------------------------//
@@ -71,27 +99,27 @@ public class Kiosk extends Activity {
 
         // Webpage Initial settings
         xmlWebView.getSettings().setJavaScriptEnabled(true);    // Enable Javascript
-        xmlWebView.loadUrl(url_Address);              // Load Webpage
+        xmlWebView.loadUrl(url_address);              // Load Webpage
         xmlWebView.setInitialScale(70);     //Set Scale - smaller for smaller screens!
 //        xmlWebView.getSettings().setDefaultFontSize(30);  //Set font size
-
-
-        // Webpage Rotation Changes
-        xmlWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);// Disable hardware acceleration to allow rotation
-        xmlWebView.setRotation(2700.0f);                          // Rotate Webpage
-
-
-        //Adjust screen if rotated sideways
-        if(xmlWebView.getRotation() == 90 || xmlWebView.getRotation() == 270) {
-            float temp1 = (width - height) / 2;
-            xmlWebView.setTranslationY(-temp1);
-            xmlWebView.setTranslationX(temp1);
-
-            ViewGroup.LayoutParams myLayout = xmlWebView.getLayoutParams(); // Extract Layout
-            myLayout.height = width;            // Flip dimension
-            myLayout.width = height;            // Flip dimension
-
-        }
+//
+//
+//        // Webpage Rotation Changes
+//        xmlWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);// Disable hardware acceleration to allow rotation
+//        xmlWebView.setRotation(2700.0f);                          // Rotate Webpage
+//
+//
+//        //Adjust screen if rotated sideways
+//        if(xmlWebView.getRotation() == 90 || xmlWebView.getRotation() == 270) {
+//            float temp1 = (width - height) / 2;
+//            xmlWebView.setTranslationY(-temp1);
+//            xmlWebView.setTranslationX(temp1);
+//
+//            ViewGroup.LayoutParams myLayout = xmlWebView.getLayoutParams(); // Extract Layout
+//            myLayout.height = width;            // Flip dimension
+//            myLayout.width = height;            // Flip dimension
+//
+//        }
 
         //--  Hide all the status bars  ---------------------------------------------------------//
         View decorView = getWindow().getDecorView();
@@ -107,8 +135,8 @@ public class Kiosk extends Activity {
     @Override
     protected void onResume(){
         super.onResume();
-        url_Address = preferences.getString(URL_KEY,url_Address);
-        xmlWebView.loadUrl(url_Address);
+        url_address = preferences.getString(URL_KEY,url_address);
+        xmlWebView.loadUrl(url_address);
     }
 
 
