@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Display;
 import android.view.ViewGroup;
+import android.view.MotionEvent;
 import android.webkit.WebViewClient;
 //import android.graphics.Point;
 
@@ -95,40 +96,45 @@ public class Kiosk extends Activity {
 
         // Get webview #1
         xmlWebView = (WebView)findViewById(R.id.myBrowser1);
-        xmlWebView.setWebViewClient(new WebBrowser());
+//        xmlWebView = new WebView(this);
+//        xmlWebView.setWebViewClient(new WebBrowser()); //embed custom browser which opens links internally
+//        xmlWebView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                toggleActionBar(view);
+//            }
+//        });
 
         // Webpage Initial settings
         xmlWebView.getSettings().setJavaScriptEnabled(true);    // Enable Javascript
         xmlWebView.loadUrl(url_address);              // Load Webpage
         xmlWebView.setInitialScale(70);     //Set Scale - smaller for smaller screens!
 //        xmlWebView.getSettings().setDefaultFontSize(30);  //Set font size
-//
-//
-//        // Webpage Rotation Changes
-//        xmlWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);// Disable hardware acceleration to allow rotation
-//        xmlWebView.setRotation(2700.0f);                          // Rotate Webpage
-//
-//
-//        //Adjust screen if rotated sideways
-//        if(xmlWebView.getRotation() == 90 || xmlWebView.getRotation() == 270) {
-//            float temp1 = (width - height) / 2;
-//            xmlWebView.setTranslationY(-temp1);
-//            xmlWebView.setTranslationX(temp1);
-//
-//            ViewGroup.LayoutParams myLayout = xmlWebView.getLayoutParams(); // Extract Layout
-//            myLayout.height = width;            // Flip dimension
-//            myLayout.width = height;            // Flip dimension
-//
-//        }
+
+
+        // Webpage Rotation Changes
+        xmlWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);// Disable hardware acceleration to allow rotation
+        xmlWebView.setRotation(90.0f);                          // Rotate Webpage
+
+
+        //Adjust screen if rotated sideways
+        if(xmlWebView.getRotation() == 90 || xmlWebView.getRotation() == 270) {
+            float temp1 = (width - height) / 2;
+            xmlWebView.setTranslationY(-temp1);
+            xmlWebView.setTranslationX(temp1);
+
+            ViewGroup.LayoutParams myLayout = xmlWebView.getLayoutParams(); // Extract Layout
+            myLayout.height = width;            // Flip dimension
+            myLayout.width = height;            // Flip dimension
+
+        }
 
         //--  Hide all the status bars  ---------------------------------------------------------//
         View decorView = getWindow().getDecorView();
         // Hide the status bar.
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
-//        // Hide the Action bar -> with menu button
-//        ActionBar actionBar = getActionBar();
-//        actionBar.hide();
+//        mSystemUiHider = SystemUiHider.getInstance(this, contentView, HIDER_FLAGS);
 
     }
 
@@ -172,6 +178,18 @@ public class Kiosk extends Activity {
         super.onStop();
 
         xmlWebView.clearCache(true);
+    }
+
+    //--  Custom Methods ----------------------------------------------------------------------//
+    public void toggleActionBar(View view){
+        // Hide the Action bar -> with menu button
+        ActionBar actionBar = getActionBar();
+        if(actionBar.isShowing()){
+            actionBar.hide();
+        }
+        else{
+            actionBar.show();
+        }
     }
 }
 

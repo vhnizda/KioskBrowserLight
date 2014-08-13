@@ -12,5 +12,10 @@
         android:layout_height="fill_parent">
     </WebView>
 
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#00FFFFFF"
+        android:onClick="toggleActionBar"/>
 
 </RelativeLayout>
