@@ -5,4 +5,7 @@
         android:title="@string/settings_name"
         android:orderInCategory="100"
         android:showAsAction="never" />
+    <item android:id="@+id/kiosk_refresh"
+        android:title="Refresh"
+        android:orderInCategory="101" />
 </menu>

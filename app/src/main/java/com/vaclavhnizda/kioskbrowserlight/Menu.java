@@ -56,21 +56,21 @@ public class Menu extends Activity{
         // Get resources
         EditText temp = (EditText)findViewById(R.id.menu_url_address);
         url_address = temp.getText().toString();
+
         temp = (EditText)findViewById(R.id.page_zoom_size);
         page_zoom_value = Integer.parseInt(temp.getText().toString());
+
         temp = (EditText)findViewById(R.id.font_zoom_size);
         font_zoom_value = Integer.parseInt(temp.getText().toString());
+
         temp = (EditText)findViewById(R.id.webpage_rotation);
         rotation_value = Integer.parseInt(temp.getText().toString());
 
         // Save Values
         SharedPreferences.Editor myEditor = getSharedPreferences(KIOSK_FILE,Context.MODE_PRIVATE).edit();
         myEditor.putString(URL_KEY,url_address);//add to save settings
-        myEditor.commit();
         myEditor.putInt(WEB_ZOOM_KEY,page_zoom_value);
-        myEditor.commit();
         myEditor.putInt(FONT_ZOOM_KEY,font_zoom_value);
-        myEditor.commit();
         myEditor.putInt(ROTATION_KEY,rotation_value);
         myEditor.commit(); // commit changes
         goBack(view);
