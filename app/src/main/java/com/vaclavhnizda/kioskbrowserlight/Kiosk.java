@@ -141,10 +141,10 @@ public class Kiosk extends Activity {
     }
 
     @Override
-    protected void onStart(){
-        super.onStart();
-//        url_address = preferences.getString(URL_KEY,"http://www.google.com");
-//        xmlWebView.loadUrl(url_address);
+    protected void onResume(){
+        super.onResume();
+        url_address = preferences.getString(URL_KEY,"http://www.google.com");
+        xmlWebView.loadUrl(url_address);
     }
 
 

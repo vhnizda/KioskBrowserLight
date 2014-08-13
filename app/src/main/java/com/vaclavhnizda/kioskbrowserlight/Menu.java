@@ -64,10 +64,13 @@ public class Menu extends Activity{
         rotation_value = Integer.parseInt(temp.getText().toString());
 
         // Save Values
-        SharedPreferences.Editor myEditor = getSharedPreferences("kiosk_save",Context.MODE_PRIVATE).edit();
+        SharedPreferences.Editor myEditor = getSharedPreferences(KIOSK_FILE,Context.MODE_PRIVATE).edit();
         myEditor.putString(URL_KEY,url_address);//add to save settings
+        myEditor.commit();
         myEditor.putInt(WEB_ZOOM_KEY,page_zoom_value);
+        myEditor.commit();
         myEditor.putInt(FONT_ZOOM_KEY,font_zoom_value);
+        myEditor.commit();
         myEditor.putInt(ROTATION_KEY,rotation_value);
         myEditor.commit(); // commit changes
         goBack(view);
