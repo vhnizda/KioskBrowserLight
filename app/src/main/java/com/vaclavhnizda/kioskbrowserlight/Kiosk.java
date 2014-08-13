@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
@@ -118,16 +119,7 @@ public class Kiosk extends Activity {
             myLayout.width = height;            // Flip dimension
 
         }
-        else
-        {
-//            xmlWebView.setTranslationY(0);
-//            xmlWebView.setTranslationX(0);
-//
-//            ViewGroup.LayoutParams myLayout = xmlWebView.getLayoutParams(); // Extract Layout
-//            myLayout.height = height;            // Flip dimension
-//            myLayout.width = width;            // Flip dimension
-        }
-
+        delayedHide(100);
     }
 
     @Override
@@ -156,8 +148,27 @@ public class Kiosk extends Activity {
             myLayout.height = height;            // Flip dimension
             myLayout.width = width;            // Flip dimension
         }
-
+        delayedHide(100);
     }
+
+
+
+    /**
+     * Schedules a call to hide() in [delay] milliseconds, canceling any
+     * previously scheduled calls.
+     */
+    private void delayedHide(int delayMillis) {
+        mHideHandler.removeCallbacks(mHideRunnable);
+        mHideHandler.postDelayed(mHideRunnable, delayMillis);
+    }
+
+    Handler mHideHandler = new Handler();
+    Runnable mHideRunnable = new Runnable() {
+        @Override
+        public void run() {
+            getActionBar().hide();
+        }
+    };
 
 
     //----- Menu Settings ---------------------------------------------------------------------//
