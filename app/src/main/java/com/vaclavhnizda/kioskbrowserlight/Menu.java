@@ -7,6 +7,7 @@ import android.widget.EditText;
 import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
+import android.app.ActionBar;
 
 /**
  * Created by HnizdaV on 8/10/14.
@@ -29,6 +30,17 @@ public class Menu extends Activity{
         super.onCreate(savedInstanceState);
         // Original code - load layout
         setContentView(R.layout.activity_menu);
+
+                //Hide all the status bars
+        View decorView = getWindow().getDecorView();
+        // Hide the status bar.
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
+        // Remember that you should never show the action bar if the
+        // status bar is hidden, so hide that too if necessary.
+        ActionBar actionBar = getActionBar();
+        actionBar.hide();
+
 
         //-- Load Saved Settings --------------------------------------------------------------//
         preferences = getSharedPreferences(KIOSK_FILE,Context.MODE_PRIVATE);

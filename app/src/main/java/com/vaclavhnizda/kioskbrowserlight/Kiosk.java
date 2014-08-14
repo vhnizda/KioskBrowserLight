@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.webkit.WebView;
 import android.view.View;
@@ -83,13 +83,13 @@ public class Kiosk extends Activity {
         // Get the current device display dimensions
         Display display = getWindowManager().getDefaultDisplay();
         width = display.getWidth();
-        height = display.getHeight();
+        height = display.getHeight() + getStatusBarHeight();//adding status bar height because it's ignored on Riko stick;
 
         // Change layout of outer frame to oversize square to prevent cropping of children
         RelativeLayout myRelLayout = (RelativeLayout)findViewById(R.id.main);
         LayoutParams layoutParams = myRelLayout.getLayoutParams();
-        layoutParams.height = width;
-        layoutParams.width = width;
+        layoutParams.height = width;//adding status bar height because it's ignored on Riko stick
+        layoutParams.width = width;//adding status bar height because it's ignored on Riko stick
 
         // Get webview #1
         xmlWebView = (WebView)findViewById(R.id.myBrowser1);
@@ -108,18 +108,27 @@ public class Kiosk extends Activity {
         xmlWebView.setRotation(new Float(rotation_value));                          // Rotate Webpage
 
 
-        //Adjust screen if rotated sideways
-        if(xmlWebView.getRotation() == 90 || xmlWebView.getRotation() == 270) {
-            float temp1 = (width - height) / 2;
-            xmlWebView.setTranslationY(-temp1);
-            xmlWebView.setTranslationX(temp1);
+//        //Adjust screen if rotated sideways
+//        if(xmlWebView.getRotation() == 90 || xmlWebView.getRotation() == 270) {
+//            float temp1 = (width - height) / 2;
+//            xmlWebView.setTranslationY(-temp1);
+//            xmlWebView.setTranslationX(temp1);
+//
+//            ViewGroup.LayoutParams myLayout = xmlWebView.getLayoutParams(); // Extract Layout
+//            myLayout.height = width;            // Flip dimension
+//            myLayout.width = height;            // Flip dimension
+//
+//        }
+//        else
+//        {
+////            xmlWebView.setTranslationY(0);
+////            xmlWebView.setTranslationX(0);
+////
+////            ViewGroup.LayoutParams myLayout = xmlWebView.getLayoutParams(); // Extract Layout
+////            myLayout.height = height;            // Flip dimension
+////            myLayout.width = width;            // Flip dimension
+//        }
 
-            ViewGroup.LayoutParams myLayout = xmlWebView.getLayoutParams(); // Extract Layout
-            myLayout.height = width;            // Flip dimension
-            myLayout.width = height;            // Flip dimension
-
-        }
-        delayedHide(100);
     }
 
     @Override
@@ -132,43 +141,26 @@ public class Kiosk extends Activity {
         xmlWebView.setRotation(new Float(rotation_value));                          // Rotate Webpage
 
 
+
+
         //Adjust screen if rotated sideways
         if(xmlWebView.getRotation() == 90 || xmlWebView.getRotation() == 270) {
             float temp1 = (width - height) / 2;
-            xmlWebView.setTranslationY(-temp1);
+            xmlWebView.setTranslationY(-temp1+getStatusBarHeight()/2);
             xmlWebView.setTranslationX(temp1);
 
             ViewGroup.LayoutParams myLayout = xmlWebView.getLayoutParams(); // Extract Layout
             myLayout.height = width;            // Flip dimension
-            myLayout.width = height;            // Flip dimension
+            myLayout.width = height + getStatusBarHeight()*3/4;//adding status bar height because it's ignored on Riko stick
 
         }
         else{
             ViewGroup.LayoutParams myLayout = xmlWebView.getLayoutParams(); // Extract Layout
-            myLayout.height = height;            // Flip dimension
+            myLayout.height = height + getStatusBarHeight()*3/4;            // Flip dimension
             myLayout.width = width;            // Flip dimension
         }
-        delayedHide(100);
+
     }
-
-
-
-    /**
-     * Schedules a call to hide() in [delay] milliseconds, canceling any
-     * previously scheduled calls.
-     */
-    private void delayedHide(int delayMillis) {
-        mHideHandler.removeCallbacks(mHideRunnable);
-        mHideHandler.postDelayed(mHideRunnable, delayMillis);
-    }
-
-    Handler mHideHandler = new Handler();
-    Runnable mHideRunnable = new Runnable() {
-        @Override
-        public void run() {
-            getActionBar().hide();
-        }
-    };
 
 
     //----- Menu Settings ---------------------------------------------------------------------//
@@ -226,6 +218,23 @@ public class Kiosk extends Activity {
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
 //        mSystemUiHider = SystemUiHider.getInstance(this, contentView, HIDER_FLAGS);
+
+        this.getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE);
+    }
+
+    public int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
     }
 }
 
@@ -235,3 +244,4 @@ public class Kiosk extends Activity {
 // http://stackoverflow.com/questions/21355784/android-rotate-whole-layout
 // http://stackoverflow.com/questions/18684172/webview-setrotation-creates-a-blank-page
 // http://www.tutorialspoint.com/android/android_webview_layout.htm
+// http://stackoverflow.com/questions/10445157/easy-way-to-hide-system-bar-on-android-ics

@@ -3,7 +3,7 @@
     android:id="@+id/main"
     android:layout_height="fill_parent"
     android:clipChildren="false"
-    android:background="#004400">
+    android:background="#001100">
 
     <WebView
         style="margin : 0; padding : 0"
@@ -16,6 +16,6 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="#00FFFFFF"
-        android:onClick="toggleActionBar"/>
+        android:onClick="toggleActionBar" />
 
 </RelativeLayout>
