@@ -160,6 +160,7 @@ public class Kiosk extends Activity {
             myLayout.width = width;            // Flip dimension
         }
 
+        toggleActionBar(this.getCurrentFocus());
     }
 
 
@@ -245,3 +246,4 @@ public class Kiosk extends Activity {
 // http://stackoverflow.com/questions/18684172/webview-setrotation-creates-a-blank-page
 // http://www.tutorialspoint.com/android/android_webview_layout.htm
 // http://stackoverflow.com/questions/10445157/easy-way-to-hide-system-bar-on-android-ics
+// http://mrtn.me/blog/2012/03/17/get-the-height-of-the-status-bar-in-android/
