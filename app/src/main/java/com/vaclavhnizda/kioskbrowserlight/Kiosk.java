@@ -155,6 +155,9 @@ public class Kiosk extends Activity {
 
         }
         else{
+            xmlWebView.setTranslationY(0);
+            xmlWebView.setTranslationX(0);
+
             ViewGroup.LayoutParams myLayout = xmlWebView.getLayoutParams(); // Extract Layout
             myLayout.height = height + getStatusBarHeight()*3/4;            // Flip dimension
             myLayout.width = width;            // Flip dimension
