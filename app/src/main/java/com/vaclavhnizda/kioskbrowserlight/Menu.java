@@ -2,6 +2,7 @@ package com.vaclavhnizda.kioskbrowserlight;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.content.Context;
@@ -47,7 +48,8 @@ public class Menu extends Activity{
 
         TextView menu_url_location = (TextView)findViewById(R.id.menu_url_address);
         url_address = preferences.getString(URL_KEY,"failed to load URL");
-        menu_url_location.setText(url_address);
+        menu_url_location.setText(Build.MANUFACTURER);
+//        menu_url_location.setText(url_address);
 
         TextView menu_web_zoom = (TextView)findViewById(R.id.page_zoom_size);
         page_zoom_value = preferences.getInt(WEB_ZOOM_KEY,100);

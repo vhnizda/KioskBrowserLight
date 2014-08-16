@@ -3,6 +3,7 @@ package com.vaclavhnizda.kioskbrowserlight;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -100,7 +101,7 @@ public class Kiosk extends Activity {
         xmlWebView.getSettings().setJavaScriptEnabled(true);    // Enable Javascript
 //        xmlWebView.loadUrl(url_address);              // Load Webpage
         xmlWebView.setInitialScale(page_zoom_value);     //Set Scale - smaller for smaller screens!
-//        xmlWebView.getSettings().setDefaultFontSize(30);  //Set font size
+        xmlWebView.getSettings().setTextZoom(font_zoom_value);  //Set font size
 
 
         // Webpage Rotation Changes
@@ -146,12 +147,12 @@ public class Kiosk extends Activity {
         //Adjust screen if rotated sideways
         if(xmlWebView.getRotation() == 90 || xmlWebView.getRotation() == 270) {
             float temp1 = (width - height) / 2;
-            xmlWebView.setTranslationY(-temp1+getStatusBarHeight()/2);
+            xmlWebView.setTranslationY(-temp1 + (getStatusBarHeight()/2));
             xmlWebView.setTranslationX(temp1);
 
             ViewGroup.LayoutParams myLayout = xmlWebView.getLayoutParams(); // Extract Layout
             myLayout.height = width;            // Flip dimension
-            myLayout.width = height + getStatusBarHeight()*3/4;//adding status bar height because it's ignored on Riko stick
+            myLayout.width = height + (getStatusBarHeight()*3/4);//adding status bar height because it's ignored on Riko stick
 
         }
         else{
@@ -159,7 +160,7 @@ public class Kiosk extends Activity {
             xmlWebView.setTranslationX(0);
 
             ViewGroup.LayoutParams myLayout = xmlWebView.getLayoutParams(); // Extract Layout
-            myLayout.height = height + getStatusBarHeight()*3/4;            // Flip dimension
+            myLayout.height = height + (getStatusBarHeight()*3/4);            // Flip dimension
             myLayout.width = width;            // Flip dimension
         }
 
@@ -211,16 +212,12 @@ public class Kiosk extends Activity {
         ActionBar actionBar = getActionBar();
         if(actionBar.isShowing()){
             actionBar.hide();
-        }
-        else{
-            actionBar.show();
-        }
 
         //--  Hide all the status bars  ---------------------------------------------------------//
         View decorView = getWindow().getDecorView();
         // Hide the status bar.
-        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-        decorView.setSystemUiVisibility(uiOptions);
+//        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+//        decorView.setSystemUiVisibility(uiOptions);
 //        mSystemUiHider = SystemUiHider.getInstance(this, contentView, HIDER_FLAGS);
 
         this.getWindow().getDecorView().setSystemUiVisibility(
@@ -230,14 +227,36 @@ public class Kiosk extends Activity {
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN
                         | View.SYSTEM_UI_FLAG_IMMERSIVE);
+        }
+        else{
+            actionBar.show();
+        }
+
+//        //--  Hide all the status bars  ---------------------------------------------------------//
+//        View decorView = getWindow().getDecorView();
+//        // Hide the status bar.
+//        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+//        decorView.setSystemUiVisibility(uiOptions);
+////        mSystemUiHider = SystemUiHider.getInstance(this, contentView, HIDER_FLAGS);
+//
+//        this.getWindow().getDecorView().setSystemUiVisibility(
+//                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+//                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+//                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+//                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+//                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+//                        | View.SYSTEM_UI_FLAG_IMMERSIVE);
     }
 
     public int getStatusBarHeight() {
         int result = 0;
-        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = getResources().getDimensionPixelSize(resourceId);
-        }
+
+//        if(Build.MANUFACTURER.contains("riko")){
+            int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+            if (resourceId > 0) {
+                result = getResources().getDimensionPixelSize(resourceId);
+            }
+//        }
         return result;
     }
 }
