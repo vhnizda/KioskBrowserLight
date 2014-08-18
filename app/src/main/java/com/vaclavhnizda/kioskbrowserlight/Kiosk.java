@@ -3,7 +3,6 @@ package com.vaclavhnizda.kioskbrowserlight;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -147,12 +146,12 @@ public class Kiosk extends Activity {
         //Adjust screen if rotated sideways
         if(xmlWebView.getRotation() == 90 || xmlWebView.getRotation() == 270) {
             float temp1 = (width - height) / 2;
-            xmlWebView.setTranslationY(-temp1 + (getStatusBarHeight()/2));
-            xmlWebView.setTranslationX(temp1);
+            xmlWebView.setTranslationY(-temp1+getStatusBarHeight()/2);
+            xmlWebView.setTranslationX(temp1-getStatusBarHeight()/2);
 
             ViewGroup.LayoutParams myLayout = xmlWebView.getLayoutParams(); // Extract Layout
             myLayout.height = width;            // Flip dimension
-            myLayout.width = height + (getStatusBarHeight()*3/4);//adding status bar height because it's ignored on Riko stick
+            myLayout.width = height + getStatusBarHeight()*6/7;//adding status bar height because it's ignored on Riko stick
 
         }
         else{
@@ -160,7 +159,7 @@ public class Kiosk extends Activity {
             xmlWebView.setTranslationX(0);
 
             ViewGroup.LayoutParams myLayout = xmlWebView.getLayoutParams(); // Extract Layout
-            myLayout.height = height + (getStatusBarHeight()*3/4);            // Flip dimension
+            myLayout.height = height + getStatusBarHeight()*6/7;            // Flip dimension
             myLayout.width = width;            // Flip dimension
         }
 
@@ -203,7 +202,7 @@ public class Kiosk extends Activity {
     protected void onStop(){
         super.onStop();
 
-        xmlWebView.clearCache(true);
+//        xmlWebView.clearCache(true);
     }
 
     //--  Custom Methods ----------------------------------------------------------------------//
@@ -250,13 +249,10 @@ public class Kiosk extends Activity {
 
     public int getStatusBarHeight() {
         int result = 0;
-
-//        if(Build.MANUFACTURER.contains("riko")){
-            int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-            if (resourceId > 0) {
-                result = getResources().getDimensionPixelSize(resourceId);
-            }
-//        }
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
         return result;
     }
 }
