@@ -173,7 +173,7 @@ public class Kiosk extends Activity {
         }
         else if(id == R.id.kiosk_refresh)
         {
-//            xmlWebView.reload();
+            xmlWebView.reload();
         }
         return super.onOptionsItemSelected(item);
     }
