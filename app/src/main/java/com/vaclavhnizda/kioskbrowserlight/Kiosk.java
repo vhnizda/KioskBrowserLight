@@ -84,12 +84,12 @@ public class Kiosk extends Activity {
         Display display = getWindowManager().getDefaultDisplay();
         width = display.getWidth();
         height = display.getHeight() + getStatusBarHeight();//adding status bar height because it's ignored on Riko stick;
-
-        // Change layout of outer frame to oversize square to prevent cropping of children
-        RelativeLayout myRelLayout = (RelativeLayout)findViewById(R.id.main);
-        LayoutParams layoutParams = myRelLayout.getLayoutParams();
-        layoutParams.height = width;//adding status bar height because it's ignored on Riko stick
-        layoutParams.width = width;//adding status bar height because it's ignored on Riko stick
+//
+//        // Change layout of outer frame to oversize square to prevent cropping of children
+//        RelativeLayout myRelLayout = (RelativeLayout)findViewById(R.id.main);
+//        LayoutParams layoutParams = myRelLayout.getLayoutParams();
+//        layoutParams.height = width;//adding status bar height because it's ignored on Riko stick
+//        layoutParams.width = width;//adding status bar height because it's ignored on Riko stick
 
         // Get webview #1
         xmlWebView = (WebView)findViewById(R.id.myBrowser1);
@@ -107,28 +107,6 @@ public class Kiosk extends Activity {
         xmlWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);// Disable hardware acceleration to allow rotation
         xmlWebView.setRotation(new Float(rotation_value));                          // Rotate Webpage
 
-
-//        //Adjust screen if rotated sideways
-//        if(xmlWebView.getRotation() == 90 || xmlWebView.getRotation() == 270) {
-//            float temp1 = (width - height) / 2;
-//            xmlWebView.setTranslationY(-temp1);
-//            xmlWebView.setTranslationX(temp1);
-//
-//            ViewGroup.LayoutParams myLayout = xmlWebView.getLayoutParams(); // Extract Layout
-//            myLayout.height = width;            // Flip dimension
-//            myLayout.width = height;            // Flip dimension
-//
-//        }
-//        else
-//        {
-////            xmlWebView.setTranslationY(0);
-////            xmlWebView.setTranslationX(0);
-////
-////            ViewGroup.LayoutParams myLayout = xmlWebView.getLayoutParams(); // Extract Layout
-////            myLayout.height = height;            // Flip dimension
-////            myLayout.width = width;            // Flip dimension
-//        }
-
     }
 
     @Override
@@ -145,9 +123,9 @@ public class Kiosk extends Activity {
 
         //Adjust screen if rotated sideways
         if(xmlWebView.getRotation() == 90 || xmlWebView.getRotation() == 270) {
-            float temp1 = (width - height) / 2;
-            xmlWebView.setTranslationY(-temp1+getStatusBarHeight()/2);
-            xmlWebView.setTranslationX(temp1-getStatusBarHeight()/2);
+//            float temp1 = (width - height) / 2;
+//            xmlWebView.setTranslationY(-temp1+getStatusBarHeight()/2);
+//            xmlWebView.setTranslationX(temp1-getStatusBarHeight()/2);
 
             ViewGroup.LayoutParams myLayout = xmlWebView.getLayoutParams(); // Extract Layout
             myLayout.height = width;            // Flip dimension
@@ -155,15 +133,17 @@ public class Kiosk extends Activity {
 
         }
         else{
-            xmlWebView.setTranslationY(0);
-            xmlWebView.setTranslationX(0);
-
+//            xmlWebView.setTranslationY(0);
+//            xmlWebView.setTranslationX(0);
+//
             ViewGroup.LayoutParams myLayout = xmlWebView.getLayoutParams(); // Extract Layout
             myLayout.height = height + getStatusBarHeight()*6/7;            // Flip dimension
             myLayout.width = width;            // Flip dimension
         }
-
+//
         toggleActionBar(this.getCurrentFocus());
+
+
     }
 
 
@@ -193,7 +173,7 @@ public class Kiosk extends Activity {
         }
         else if(id == R.id.kiosk_refresh)
         {
-            xmlWebView.reload();
+//            xmlWebView.reload();
         }
         return super.onOptionsItemSelected(item);
     }
