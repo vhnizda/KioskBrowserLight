@@ -24,7 +24,7 @@ public class Menu extends Activity{
     private static final String FONT_ZOOM_KEY = "com.vaclavhnizda.kioskbrowserlight.font_zoom";
     private static int font_zoom_value;
     private static final String ROTATION_KEY = "com.vaclavhnizda.kioskbrowserlight.rotation";
-    private static int rotation_value;
+    private static float rotation_value;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +61,7 @@ public class Menu extends Activity{
         menu_font_zoom.setText(String.valueOf(font_zoom_value));
 
         TextView menu_rotation = (TextView)findViewById(R.id.webpage_rotation);
-        rotation_value = preferences.getInt(ROTATION_KEY,0);
+        rotation_value = preferences.getFloat(ROTATION_KEY,0);
         menu_rotation.setText(String.valueOf(rotation_value));
 
 
@@ -79,14 +79,14 @@ public class Menu extends Activity{
         font_zoom_value = Integer.parseInt(temp.getText().toString());
 
         temp = (EditText)findViewById(R.id.webpage_rotation);
-        rotation_value = Integer.parseInt(temp.getText().toString());
+        rotation_value = Float.parseFloat(temp.getText().toString());
 
         // Save Values
         SharedPreferences.Editor myEditor = getSharedPreferences(KIOSK_FILE,Context.MODE_PRIVATE).edit();
         myEditor.putString(URL_KEY,url_address);//add to save settings
         myEditor.putInt(WEB_ZOOM_KEY,page_zoom_value);
         myEditor.putInt(FONT_ZOOM_KEY,font_zoom_value);
-        myEditor.putInt(ROTATION_KEY,rotation_value);
+        myEditor.putFloat(ROTATION_KEY,rotation_value);
         myEditor.commit(); // commit changes
         goBack(view);
     }
