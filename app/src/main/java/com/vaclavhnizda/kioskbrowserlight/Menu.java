@@ -14,22 +14,24 @@ import android.app.ActionBar;
  */
 public class Menu extends Activity{
 
-    private static SharedPreferences preferences;
-    private static final String KIOSK_FILE = "com.vaclavhnizda.kioskbrowserlight.save";
-    private static final String URL_KEY = "com.vaclavhnizda.kioskbrowserlight.url";
-    private static String url_address;
-    private static final String WEB_ZOOM_KEY = "com.vaclavhnizda.kioskbrowserlight.webpage_zoom";
-    private static int page_zoom_value;
-    private static final String FONT_ZOOM_KEY = "com.vaclavhnizda.kioskbrowserlight.font_zoom";
-    private static int font_zoom_value;
-    private static final String ROTATION_KEY = "com.vaclavhnizda.kioskbrowserlight.rotation";
-    private static int rotation_value;
+//    private static SharedPreferences preferences;
+    private static Data myDataStore;
+//    private static final String KIOSK_FILE = "com.vaclavhnizda.kioskbrowserlight.save";
+//    private static final String URL_KEY = "com.vaclavhnizda.kioskbrowserlight.url";
+//    private static String url_address;
+//    private static final String WEB_ZOOM_KEY = "com.vaclavhnizda.kioskbrowserlight.webpage_zoom";
+//    private static int page_zoom_value;
+//    private static final String FONT_ZOOM_KEY = "com.vaclavhnizda.kioskbrowserlight.font_zoom";
+//    private static int font_zoom_value;
+//    private static final String ROTATION_KEY = "com.vaclavhnizda.kioskbrowserlight.rotation";
+//    private static int rotation_value;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Original code - load layout
         setContentView(R.layout.activity_menu);
+        myDataStore = new Data(this);
 
         //Hide all the status bars
         View decorView = getWindow().getDecorView();
@@ -43,25 +45,25 @@ public class Menu extends Activity{
 
 
         //-- Load Saved Settings --------------------------------------------------------------//
-        preferences = getSharedPreferences(KIOSK_FILE,Context.MODE_PRIVATE);
+//        preferences = getSharedPreferences(KIOSK_FILE,Context.MODE_PRIVATE);
 
         TextView menu_url_location = (TextView)findViewById(R.id.menu_url_address);
-        url_address = preferences.getString(URL_KEY,"failed to load URL");
+//        url_address = preferences.getString(URL_KEY,"failed to load URL");
 //        menu_url_location.setText(Build.MANUFACTURER);
-        menu_url_location.setText(url_address);
+        menu_url_location.setText(myDataStore.getUrl_address());
 //        menu_url_location.setText("http://transitscreenstaging.herokuapp.com/index.php/screen/index/296500");
 
         TextView menu_web_zoom = (TextView)findViewById(R.id.page_zoom_size);
-        page_zoom_value = preferences.getInt(WEB_ZOOM_KEY,100);
-        menu_web_zoom.setText(String.valueOf(page_zoom_value));
+//        page_zoom_value = preferences.getInt(WEB_ZOOM_KEY,100);
+        menu_web_zoom.setText(String.valueOf(myDataStore.getWeb_zoom_value()));
 
         TextView menu_font_zoom = (TextView)findViewById(R.id.font_zoom_size);
-        font_zoom_value = preferences.getInt(FONT_ZOOM_KEY,100);
-        menu_font_zoom.setText(String.valueOf(page_zoom_value));
+//        font_zoom_value = preferences.getInt(FONT_ZOOM_KEY,100);
+        menu_font_zoom.setText(String.valueOf(myDataStore.getFont_zoom_value()));
 
         TextView menu_rotation = (TextView)findViewById(R.id.webpage_rotation);
-        rotation_value = preferences.getInt(ROTATION_KEY,0);
-        menu_rotation.setText(String.valueOf(rotation_value));
+//        rotation_value = preferences.getInt(ROTATION_KEY,0);
+        menu_rotation.setText(String.valueOf(myDataStore.getRotation_value()));
 
 
     }
@@ -69,24 +71,24 @@ public class Menu extends Activity{
     public void updateSettings(View view){
         // Get resources
         EditText temp = (EditText)findViewById(R.id.menu_url_address);
-        url_address = temp.getText().toString();
+        myDataStore.setUrl_address(temp.getText().toString());
 
         temp = (EditText)findViewById(R.id.page_zoom_size);
-        page_zoom_value = Integer.parseInt(temp.getText().toString());
+        myDataStore.setWeb_zoom_value(Integer.parseInt(temp.getText().toString()));
 
         temp = (EditText)findViewById(R.id.font_zoom_size);
-        font_zoom_value = Integer.parseInt(temp.getText().toString());
+        myDataStore.setFont_zoom_value(Integer.parseInt(temp.getText().toString()));
 
         temp = (EditText)findViewById(R.id.webpage_rotation);
-        rotation_value = Integer.parseInt(temp.getText().toString());
+        myDataStore.setRotation_value(Integer.parseInt(temp.getText().toString()));
 
-        // Save Values
-        SharedPreferences.Editor myEditor = getSharedPreferences(KIOSK_FILE,Context.MODE_PRIVATE).edit();
-        myEditor.putString(URL_KEY,url_address);//add to save settings
-        myEditor.putInt(WEB_ZOOM_KEY,page_zoom_value);
-        myEditor.putInt(FONT_ZOOM_KEY,font_zoom_value);
-        myEditor.putInt(ROTATION_KEY,rotation_value);
-        myEditor.commit(); // commit changes
+//        // Save Values
+//        SharedPreferences.Editor myEditor = getSharedPreferences(KIOSK_FILE,Context.MODE_PRIVATE).edit();
+//        myEditor.putString(URL_KEY,url_address);//add to save settings
+//        myEditor.putInt(WEB_ZOOM_KEY,page_zoom_value);
+//        myEditor.putInt(FONT_ZOOM_KEY,font_zoom_value);
+//        myEditor.putInt(ROTATION_KEY,rotation_value);
+//        myEditor.commit(); // commit changes
         goBack(view);
     }
 

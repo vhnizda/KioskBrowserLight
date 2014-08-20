@@ -19,7 +19,7 @@ public class Data {
     private static String   url_address;
     private static int      web_zoom_value;
     private static int      font_zoom_value;
-    private static float    rotation_value;
+    private static int      rotation_value;
 
     //--Constructor ------------------------------------------------------------------------------//
 
@@ -53,17 +53,17 @@ public class Data {
             myEditor.commit();
         }
 
-        rotation_value = preferences.getFloat(ROTATION_KEY, -1);
+        rotation_value = preferences.getInt(ROTATION_KEY, -1);
         if(rotation_value == -1)
         {
-            rotation_value = 0.0f;
-            myEditor.putFloat(ROTATION_KEY, rotation_value); //Save default to data store
+            rotation_value = 0;
+            myEditor.putInt(ROTATION_KEY, rotation_value); //Save default to data store
             myEditor.commit();
         }
     }
 
     //-- Retrieve Values -------------------------------------------------------------------------//
-    public float getRotation_value() {
+    public int getRotation_value() {
         return rotation_value;
     }
 
@@ -99,9 +99,9 @@ public class Data {
         myEditor.commit();
     }
 
-    public void setRotation_value(float rotation_value) {
+    public void setRotation_value(int rotation_value) {
         Data.rotation_value = rotation_value;
-        myEditor.putFloat(ROTATION_KEY,rotation_value);
+        myEditor.putInt(ROTATION_KEY,rotation_value);
         myEditor.commit();
     }
 }
