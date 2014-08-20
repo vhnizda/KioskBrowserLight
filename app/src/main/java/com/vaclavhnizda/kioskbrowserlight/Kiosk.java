@@ -118,7 +118,11 @@ public class Kiosk extends Activity {
         rotation_value = preferences.getInt(ROTATION_KEY, rotation_value);
         xmlWebView.setRotation(new Float(rotation_value));                          // Rotate Webpage
 
+        page_zoom_value = preferences.getInt(WEB_ZOOM_KEY,page_zoom_value);
+        xmlWebView.setInitialScale(page_zoom_value);     //Set Scale - smaller for smaller screens!
 
+        font_zoom_value = preferences.getInt(FONT_ZOOM_KEY,font_zoom_value);
+        xmlWebView.getSettings().setTextZoom(font_zoom_value);  //Set font size
 
 
         //Adjust screen if rotated sideways

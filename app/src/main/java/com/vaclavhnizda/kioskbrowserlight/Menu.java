@@ -58,7 +58,7 @@ public class Menu extends Activity{
 
         TextView menu_font_zoom = (TextView)findViewById(R.id.font_zoom_size);
         font_zoom_value = preferences.getInt(FONT_ZOOM_KEY,100);
-        menu_font_zoom.setText(String.valueOf(page_zoom_value));
+        menu_font_zoom.setText(String.valueOf(font_zoom_value));
 
         TextView menu_rotation = (TextView)findViewById(R.id.webpage_rotation);
         rotation_value = preferences.getInt(ROTATION_KEY,0);
