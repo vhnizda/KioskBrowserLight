@@ -2,7 +2,6 @@ package com.vaclavhnizda.kioskbrowserlight;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.content.Context;

@@ -6,17 +6,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.WindowManager;
-import android.widget.RelativeLayout;
 import android.webkit.WebView;
 import android.view.View;
 import android.app.ActionBar;
 import android.content.Intent;
-import android.view.ViewGroup.LayoutParams;
 import android.view.Display;
 import android.view.ViewGroup;
-import android.view.MotionEvent;
-import android.webkit.WebViewClient;
 
 public class Kiosk extends Activity {
 
