@@ -50,22 +50,23 @@
 
 
         <WebView
-        style="?metaButtonBarStyle"
-        android:hardwareAccelerated="false"
-        android:id="@+id/myBrowser1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:background="@color/black_overlay"
-        tools:ignore="UselessParent">
+            style="?metaButtonBarStyle"
+            android:hardwareAccelerated="false"
+            android:id="@+id/myBrowser1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@color/black_overlay"
+            android:layerType="software"
+            tools:ignore="UselessParent">
         </WebView>
 
         <Button
-        style="?metaButtonBarButtonStyle"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#00FFFFFF"
-        android:onClick="toggleActionBar" />
+            style="?metaButtonBarButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00FFFFFF"
+            android:onClick="toggleActionBar" />
 
 
 
