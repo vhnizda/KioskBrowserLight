@@ -1,26 +1,3 @@
-<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--android:layout_width="fill_parent"-->
-    <!--android:layout_height="fill_parent"-->
-    <!--android:id="@+id/main"-->
-    <!--android:clipChildren="false"-->
-    <!--android:background="#001100">-->
-
-    <!--<WebView-->
-        <!--style="margin : 0; padding : 0"-->
-        <!--android:hardwareAccelerated="false"-->
-        <!--android:id="@+id/myBrowser1"-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="fill_parent">-->
-    <!--</WebView>-->
-
-    <!--<Button-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="fill_parent"-->
-        <!--android:background="#00FFFFFF"-->
-        <!--android:onClick="toggleActionBar" />-->
-
-<!--</RelativeLayout>-->
-
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/kiosk_layout_frame"
@@ -42,13 +19,6 @@
         android:gravity="center"
         android:text="Webpage not visible" />
 
-    <!--&lt;!&ndash; This FrameLayout insets its children based on system windows using-->
-         <!--android:fitsSystemWindows. &ndash;&gt;-->
-    <!--<FrameLayout android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:fitsSystemWindows="true">-->
-
-
         <WebView
             style="?metaButtonBarStyle"
             android:hardwareAccelerated="false"
@@ -67,26 +37,5 @@
             android:layout_height="match_parent"
             android:background="#00FFFFFF"
             android:onClick="toggleActionBar" />
-
-
-
-        <!--<LinearLayout android:id="@+id/fullscreen_content_controls"-->
-            <!--style="?metaButtonBarStyle"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="bottom|center_horizontal"-->
-            <!--android:background="@color/black_overlay"-->
-            <!--android:orientation="horizontal"-->
-            <!--tools:ignore="UselessParent">-->
-
-            <!--<Button android:id="@+id/dummy_button"-->
-                <!--style="?metaButtonBarButtonStyle"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="1"-->
-                <!--android:text="Test Button" />-->
-
-        <!--</LinearLayout>-->
-    <!--</FrameLayout>-->
 
 </FrameLayout>

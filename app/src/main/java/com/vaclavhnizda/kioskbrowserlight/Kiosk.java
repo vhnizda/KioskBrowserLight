@@ -16,16 +16,17 @@ import android.view.ViewGroup;
 public class Kiosk extends Activity {
 
     private static WebView xmlWebView;
-    private static SharedPreferences preferences;
-    private static final String KIOSK_FILE = "com.vaclavhnizda.kioskbrowserlight.save";
-    private static final String URL_KEY = "com.vaclavhnizda.kioskbrowserlight.url";
-    private static String url_address;
-    private static final String WEB_ZOOM_KEY = "com.vaclavhnizda.kioskbrowserlight.webpage_zoom";
-    private static int page_zoom_value;
-    private static final String FONT_ZOOM_KEY = "com.vaclavhnizda.kioskbrowserlight.font_zoom";
-    private static int font_zoom_value;
-    private static final String ROTATION_KEY = "com.vaclavhnizda.kioskbrowserlight.rotation";
-    private static int rotation_value;
+    private static Data myData;
+//    private static SharedPreferences preferences;
+//    private static final String KIOSK_FILE = "com.vaclavhnizda.kioskbrowserlight.save";
+//    private static final String URL_KEY = "com.vaclavhnizda.kioskbrowserlight.url";
+//    private static String url_address;
+//    private static final String WEB_ZOOM_KEY = "com.vaclavhnizda.kioskbrowserlight.webpage_zoom";
+//    private static int page_zoom_value;
+//    private static final String FONT_ZOOM_KEY = "com.vaclavhnizda.kioskbrowserlight.font_zoom";
+//    private static int font_zoom_value;
+//    private static final String ROTATION_KEY = "com.vaclavhnizda.kioskbrowserlight.rotation";
+//    private static int rotation_value;
 
     private int width,height;
 
@@ -36,41 +37,42 @@ public class Kiosk extends Activity {
         setContentView(R.layout.activity_kiosk);
 
         //-- Load Saved Settings --------------------------------------------------------------//
-        preferences = getSharedPreferences(KIOSK_FILE, Context.MODE_PRIVATE);
-        SharedPreferences.Editor edit_Prefs = preferences.edit();
-
-        url_address = preferences.getString(URL_KEY,null);
-        if(url_address == null)
-        {
-            url_address = "http://www.google.com";
-            edit_Prefs.putString(URL_KEY,url_address);
-            edit_Prefs.commit();
-        }
-
-        page_zoom_value = preferences.getInt(WEB_ZOOM_KEY, 0);
-        if(page_zoom_value == 0)
-        {
-            page_zoom_value = 100;
-            edit_Prefs.putInt(WEB_ZOOM_KEY,page_zoom_value);
-            edit_Prefs.commit();
-
-        }
-
-        font_zoom_value = preferences.getInt(FONT_ZOOM_KEY, 0);  // setTextZoom(int)
-        if(font_zoom_value == 0)
-        {
-            font_zoom_value = 100;
-            edit_Prefs.putInt(FONT_ZOOM_KEY,font_zoom_value);
-            edit_Prefs.commit();
-        }
-
-        rotation_value = preferences.getInt(ROTATION_KEY, -1);
-        if(rotation_value == -1)
-        {
-            rotation_value = 0;
-            edit_Prefs.putInt(ROTATION_KEY, rotation_value);
-            edit_Prefs.commit();
-        }
+        myData = new Data(this);
+//        preferences = getSharedPreferences(KIOSK_FILE, Context.MODE_PRIVATE);
+//        SharedPreferences.Editor edit_Prefs = preferences.edit();
+//
+//        url_address = preferences.getString(URL_KEY,null);
+//        if(url_address == null)
+//        {
+//            url_address = "http://www.google.com";
+//            edit_Prefs.putString(URL_KEY,url_address);
+//            edit_Prefs.commit();
+//        }
+//
+//        page_zoom_value = preferences.getInt(WEB_ZOOM_KEY, 0);
+//        if(page_zoom_value == 0)
+//        {
+//            page_zoom_value = 100;
+//            edit_Prefs.putInt(WEB_ZOOM_KEY,page_zoom_value);
+//            edit_Prefs.commit();
+//
+//        }
+//
+//        font_zoom_value = preferences.getInt(FONT_ZOOM_KEY, 0);  // setTextZoom(int)
+//        if(font_zoom_value == 0)
+//        {
+//            font_zoom_value = 100;
+//            edit_Prefs.putInt(FONT_ZOOM_KEY,font_zoom_value);
+//            edit_Prefs.commit();
+//        }
+//
+//        rotation_value = preferences.getInt(ROTATION_KEY, -1);
+//        if(rotation_value == -1)
+//        {
+//            rotation_value = 0;
+//            edit_Prefs.putInt(ROTATION_KEY, rotation_value);
+//            edit_Prefs.commit();
+//        }
 
 
         //-- Setup Layout Settings ------------------------------------------------------------//
@@ -94,24 +96,26 @@ public class Kiosk extends Activity {
         // Webpage Initial settings
         xmlWebView.getSettings().setJavaScriptEnabled(true);    // Enable Javascript
 //        xmlWebView.loadUrl(url_address);              // Load Webpage
-        xmlWebView.setInitialScale(page_zoom_value);     //Set Scale - smaller for smaller screens!
-        xmlWebView.getSettings().setTextZoom(font_zoom_value);  //Set font size
+//        xmlWebView.setInitialScale(page_zoom_value);     //Set Scale - smaller for smaller screens!
+//        xmlWebView.getSettings().setTextZoom(font_zoom_value);  //Set font size
 
 
         // Webpage Rotation Changes
-        xmlWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);// Disable hardware acceleration to allow rotation
-        xmlWebView.setRotation(new Float(rotation_value));                          // Rotate Webpage
+//        xmlWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);// Disable hardware acceleration to allow rotation
+//        xmlWebView.setRotation(new Float(rotation_value));                          // Rotate Webpage
 
     }
 
     @Override
     protected void onResume(){
         super.onResume();
-        url_address = preferences.getString(URL_KEY,"http://www.google.com");
-        xmlWebView.loadUrl(url_address);
-
-        rotation_value = preferences.getInt(ROTATION_KEY, rotation_value);
-        xmlWebView.setRotation(new Float(rotation_value));                          // Rotate Webpage
+//        url_address = preferences.getString(URL_KEY,"http://www.google.com");
+//        rotation_value = preferences.getInt(ROTATION_KEY, rotation_value);
+//        xmlWebView.setRotation(new Float(rotation_value));                          // Rotate Webpage
+        xmlWebView.setInitialScale(myData.getWeb_zoom_value());
+        xmlWebView.getSettings().setTextZoom(myData.getFont_zoom_value());
+        xmlWebView.setRotation(new Float(myData.getRotation_value()));                          // Rotate Webpage
+        xmlWebView.loadUrl(myData.getUrl_address());
 
 
 
