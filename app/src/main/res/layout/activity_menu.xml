@@ -13,13 +13,13 @@
             android:layout_weight="1.0"
             android:background="#222222">
 
-
+            <!-- As more features get added this scrollView will manage the view -->
             <ScrollView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_span="4">
 
-
+                <!-- Used to organize the breakdown of information into columns -->
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
 
                     <TableRow>
                         <TextView
-                            android:text="Page Zoom:"
+                            android:text="@string/menu_web_zoom"
                             android:textColor="@color/text_on_black"/>
                         <EditText
                             android:id="@+id/page_zoom_size"
@@ -58,7 +58,7 @@
 
                     <TableRow>
                         <TextView
-                            android:text="Font Zoom:"
+                            android:text="@string/menu_font_zoom"
                             android:textColor="@color/text_on_black"/>
                         <EditText
                             android:id="@+id/font_zoom_size"
@@ -69,7 +69,7 @@
 
                     <TableRow>
                         <TextView
-                            android:text="Orientation:"
+                            android:text="@string/menu_orientation"
                             android:textColor="@color/text_on_black"/>
                         <EditText
                             android:id="@+id/webpage_rotation"
@@ -87,14 +87,14 @@
         </TableRow>
 
 
-
+        <!-- Buttons at the bottom for saving and canceling setting updates -->
         <TableRow
             android:background="#000000"
             android:gravity="right">
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="  Save Changes  "
+                android:text="@string/menu_button_save"
                 android:id="@+id/save_button"
                 android:textColor="@color/text_on_black"
                 android:layout_column="2"
@@ -102,7 +102,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="  Cancel  "
+                android:text="@string/menu_button_cancel"
                 android:id="@+id/cancel_button"
                 android:textColor="@color/text_on_black"
                 android:layout_column="3"

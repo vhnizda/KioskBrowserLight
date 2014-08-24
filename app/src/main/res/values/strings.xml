@@ -1,8 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--Action Bar descriptors-->
     <string name="app_name">Kiosk Browser Light</string>
     <string name="settings_name">Kiosk Settings</string>
+
+    <!--Menu Options-->
     <string name="menu_url_name">URL:  </string>
+    <string name="menu_web_zoom">Page Zoom:</string>
+    <string name="menu_font_zoom">Font Zoom:</string>
+    <string name="menu_orientation">Orientation:</string>
+
+    <!--Menu buttons-->
+    <string name="menu_button_save">  Save Changes  </string>
+    <string name="menu_button_cancel">  Cancel  </string>
+
+    <!--Warning message if webview does not display-->
+    <string name="warning_text">
+        Kiosk Browser is currently unable to display this webpage on your device.
+        Please notify the developer of your Android make and model.
+    </string>
 
 </resources>

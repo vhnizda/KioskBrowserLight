@@ -3,24 +3,23 @@
     android:id="@+id/kiosk_layout_frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#002222"
+    android:background="#ff000000"
     tools:context=".MainActivity">
 
-    <!-- The primary full-screen view. This can be replaced with whatever view
-         is needed to present your content, e.g. VideoView, SurfaceView,
-         TextureView, etc. -->
+    <!-- The primary full-screen view -->
     <TextView android:id="@+id/fullscreen_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:keepScreenOn="true"
+        android:background="#ff000000"
         android:textColor="#33b5e5"
         android:textStyle="bold"
-        android:textSize="50sp"
         android:gravity="center"
-        android:text="Webpage not visible" />
+        android:text="@string/warning_text" />
 
+        <!-- Initial webview used to display the webpage specified -->
+        <!-- Note: Using rotation requires layerType to be software! -->
         <WebView
-            style="?metaButtonBarStyle"
             android:hardwareAccelerated="false"
             android:id="@+id/myBrowser1"
             android:layout_width="match_parent"
@@ -31,8 +30,8 @@
             tools:ignore="UselessParent">
         </WebView>
 
+        <!-- This button is used to interact with finger touches or mouse clicks -->
         <Button
-            style="?metaButtonBarButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#00FFFFFF"
