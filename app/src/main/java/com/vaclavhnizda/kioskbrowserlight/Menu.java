@@ -20,6 +20,8 @@ public class Menu extends Activity{
         setContentView(R.layout.activity_menu);
         myDataStore = new Data(this);   // Data save class
 
+        getActionBar().hide();
+
         //-- Load Settings -----------------------------------------------------------------------//
         TextView menu_url_location = (TextView)findViewById(R.id.menu_url_address);
         menu_url_location.setText(myDataStore.getUrl_address());

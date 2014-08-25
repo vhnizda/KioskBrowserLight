@@ -9,34 +9,27 @@ import android.view.View;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.view.Display;
-import android.view.ViewGroup;
+
+/**
+ * Created by HnizdaV on 8/2/14.
+ */
 
 public class Kiosk extends Activity {
-
-    private static WebView xmlWebView;
-    private static Data myData;
-    private int width,height;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Original code - load layout
         setContentView(R.layout.activity_kiosk);
 
-        //-- Load Saved Settings --------------------------------------------------------------//
-        myData = new Data(this);   // Data save class
+        // Load the saved data link
+        WebViewManager.Instance().setMyDataLink(this);
 
-        //-- Setup Layout Settings ------------------------------------------------------------//
-
-        // Get the current device display dimensions
+        // Get the current device display dimensions and load them
         Display display = getWindowManager().getDefaultDisplay();
-        width = display.getWidth();
-        height = display.getHeight() + getStatusBarHeight();//adding status bar height because it's ignored on Riko stick;
+        WebViewManager.Instance().setScreenDimensions(display.getWidth(),display.getHeight() + getStatusBarHeight()*13/7);
 
-        // Prepare webview #1
-        xmlWebView = (WebView)findViewById(R.id.myBrowser1);
-        xmlWebView.setWebViewClient(new WebBrowser()); // Run hyperlinks internally only
-        xmlWebView.getSettings().setJavaScriptEnabled(true);    // Enable Javascript
+        // Add webview from this activity to the manager
+        WebViewManager.Instance().setWebView1((WebView)findViewById(R.id.myBrowser1));
 
     }
 
@@ -44,33 +37,9 @@ public class Kiosk extends Activity {
     protected void onResume(){
         super.onResume();
 
-        // Setup Webview
-        xmlWebView.setInitialScale(myData.getWeb_zoom_value());
-        xmlWebView.getSettings().setTextZoom(myData.getFont_zoom_value());
-        xmlWebView.setRotation(new Float(myData.getRotation_value()));                          // Rotate Webpage
-        xmlWebView.loadUrl(myData.getUrl_address());
-
-
-
-
-        //Adjust screen based on rotation
-        if(xmlWebView.getRotation() == 90 || xmlWebView.getRotation() == 270) {
-
-            ViewGroup.LayoutParams myLayout = xmlWebView.getLayoutParams(); // Extract Layout
-            myLayout.height = width;            // Flip dimension
-            myLayout.width = height + getStatusBarHeight()*6/7;//adding status bar height because it's ignored on Riko stick
-
-        }
-        else{
-
-            ViewGroup.LayoutParams myLayout = xmlWebView.getLayoutParams(); // Extract Layout
-            myLayout.height = height + getStatusBarHeight()*6/7;            // Flip dimension
-            myLayout.width = width;            // Flip dimension
-        }
+        WebViewManager.Instance().update(); //Web View Manager handles the details
 
         toggleActionBar(this.getCurrentFocus()); // Switch to fullscreen after successful load
-
-
     }
 
 
@@ -91,16 +60,13 @@ public class Kiosk extends Activity {
         if (id == R.id.kiosk_settings) {
 
             Intent intent = new Intent(this, com.vaclavhnizda.kioskbrowserlight.Menu.class);
-//            EditText editText = (EditText) findViewById(R.id.edit_message);
-//            String message = editText.getText().toString();
-//            intent.putExtra(EXTRA_MESSAGE, message);
             startActivity(intent);
 
             return true;
         }
         else if(id == R.id.kiosk_refresh)
         {
-            xmlWebView.reload();
+            WebViewManager.Instance().reload(); //Request the manager to reload the web views
         }
         return super.onOptionsItemSelected(item);
     }
@@ -108,11 +74,11 @@ public class Kiosk extends Activity {
     @Override
     protected void onStop(){
         super.onStop();
-
-//        xmlWebView.clearCache(true);
     }
 
     //--  Custom Methods ----------------------------------------------------------------------//
+
+    // Show or hide application bars
     public void toggleActionBar(View view){
         // Hide the Action bar -> with menu button
         ActionBar actionBar = getActionBar();
@@ -127,7 +93,7 @@ public class Kiosk extends Activity {
         }
     }
 
-    // Added to dimensions to compensate for Navigation Bar
+    // Figure out the dimensions of the Navigation Bar
     public int getStatusBarHeight() {
         int result = 0;
         int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");

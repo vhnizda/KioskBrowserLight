@@ -2,6 +2,8 @@ package com.vaclavhnizda.kioskbrowserlight;
 
 /**
  * Created by HnizdaV on 8/7/14.
+ *
+ * Simple class used to get preconfigured webpages. for testing.
  */
 public class WebPageList {
     private static String[] urls = new String[4];
